@@ -1,0 +1,224 @@
+@import '../../variables/variables.scss';
+
+.header {
+  padding: 20px 0;
+  background-image: linear-gradient(
+    to right bottom,
+    rgba($bg-color-main, 0.9),
+    rgba($bg-color-main, 0.9),
+    rgba($bg-color-main, 0.6),
+    rgba($bg-color-main, 0.5),
+    rgba($bg-color-main, 0)
+  );
+  z-index: 999;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.header__container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header__logo {
+  font-weight: $fw700;
+  font-size: 25px;
+  color: $text-color;
+
+  .span-red {
+    @include span-logo;
+    position: relative;
+  }
+}
+
+.header__item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.nav__list {
+  display: flex;
+}
+
+nav {
+  display: block;
+}
+
+.nav__item {
+  font-size: 15px;
+  text-transform: uppercase;
+}
+
+.nav__link {
+  margin-left: 25px;
+  font-weight: $fw700;
+  border-bottom: 2px solid transparent;
+  position: relative;
+  text-transform: uppercase;
+  &::before {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 0;
+    height: 3px;
+    bottom: -5px;
+    left: 0;
+    background-color: $text-color-red;
+    transition: all 0.2s linear;
+  }
+  &:hover::before {
+    width: 100%;
+  }
+}
+
+.burger-menu {
+  height: 100% !important;
+  display: flex;
+  flex-direction: column;
+  background: $bg-color-main;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.no-scroll {
+  overflow: hidden !important;
+}
+
+.burger-menu .bm-menu {
+  display: none;
+  /* Стили для внутреннего контейнера меню */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.burger-menu .bm-item-list {
+  display: flex;
+  flex-direction: column;
+  // align-items: center;
+}
+
+/* Дополнительные стили для ваших ссылок и других элементов */
+.burger-menu a {
+  color: $text-color; 
+  font-size: 18px; 
+  &:hover {
+    background: $bg-color-red;
+    color: $text-color;
+    padding: 5px;
+    border-radius: 5px;
+    transition: all .2s linear;
+  }
+  &:before {
+    background: none;
+  }
+}
+
+.bm-burger-button {
+  display: none;
+  position: absolute;
+  width: 30px;
+  height: 20px;
+  right: -40px;
+  top: 3px;
+}
+
+/* Color/shape of burger icon bars */
+.bm-burger-bars {
+  background: $text-color;
+}
+
+/* Color/shape of burger icon bars on hover*/
+.bm-burger-bars-hover {
+  background: $text-color-red;
+}
+
+/* Position and sizing of clickable cross button */
+.bm-cross-button {
+  height: 30px;
+  width: 30px;
+  &:hover {
+    background: $text-color;
+    transition: all 0.2s linear;
+  }
+}
+
+/* Color/shape of close button cross */
+.bm-cross {
+  background: $bg-color-red;
+  &:hover {
+    background: $bg-color-white;
+  }
+}
+
+.bm-menu-wrap {
+  position: fixed;
+  left: 0;
+  height: 100%;
+  display: flex;
+}
+
+/* General sidebar styles */
+.bm-menu {
+  background: $bg-color-main;
+}
+
+/* Morph shape necessary with bubble or elastic */
+
+/* Wrapper for item list */
+.bm-item-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #b8b7ad;
+  padding: 0.8em;
+}
+
+/* Styling of overlay */
+.bm-overlay {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.nav__list.burger-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.nav__item.burger-item {
+  margin-top: 20px;
+}
+
+.nav__link.burger-link {
+  margin-left: 0;
+}
+
+.burger-menu--title {
+  font-size: 35px;
+  font-weight: $fw700;
+}
+
+.burger-menu--subtitle {
+  font-size: 25px;
+  margin: 20px 0;
+  box-sizing: border-box;
+  font-weight: $fw700;
+  position: relative;
+  &:after {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: -10px;
+    width: 60%;
+    height: 3px;
+    background: $bg-color-red;
+    box-shadow: 5px 1px 10px $bg-color-red;
+
+  }
+}

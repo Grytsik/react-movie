@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
+
+$font-family: 'Playfair Display', serif;
+$text-color: #fff;
+$text-color-red: #fc4844;
+$search-bg-color: #2f3640;
+
+$bg-color-main: #181818;
+$bg-color-header: #000;
+$bg-color-red: #fc4844;
+$bg-color-white: #fff;
+
+$fw400: 400;
+$fw700: bold;
+
+$title-size: 40px;
+$text-size: 20px;
+
+@mixin title-style {
+  font-size: 30px;
+  font-weight: $fw700;
+  margin: 30px 0;
+  position: relative;
+  &:after {
+    content: '';
+    position: absolute;
+    display: block;
+    bottom: -10px;
+    width: 30%;
+    height: 3px;
+    background-color: $text-color-red;
+    box-shadow: 1px 5px 10px $text-color-red;
+  }
+}
+
+@mixin span-logo {
+  color: $text-color-red;
+  font-weight: $fw700;
+}

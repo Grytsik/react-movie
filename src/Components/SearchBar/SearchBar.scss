@@ -1,0 +1,65 @@
+@import '../../variables/variables.scss';
+
+.searchBar {
+  border: 2px solid $text-color-red;
+  border-radius: 40px;
+  padding: 20px 30px;
+  width: 600px;
+  overflow: hidden;
+  transition: width 0.4s ease;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.searchBar__input {
+  width: 100%;
+  position: relative;
+  padding: 10px 30px;
+  border-radius: 10px;
+  &:focus {
+    box-shadow: 1px 4px 10px $bg-color-red;
+    transition: all .2s linear;
+  }
+}
+
+.searchBar__btn {
+  position: absolute;
+  top: 21px;
+  right: 35px;
+  width: 30px;
+  height: 30px;
+  padding: 15px;
+  border-radius: 10px;
+  background: $bg-color-white;
+  border: 2px solid $bg-color-red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.4s;
+  &:hover {
+    transition: all 0.2s linear;
+    background: $bg-color-red;
+  }
+  .searchBar__img {
+    width: 25px;
+    height: 25px;
+  }
+}
+
+.searchBar__categoryBtn {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 15px;
+  .categoryBtn-item {
+    padding: 5px 20px;
+    border-radius: 5px;
+    &:hover, &.active {
+      background: $bg-color-red;
+      color: $text-color;
+      transition: all 0.2s linear;
+    }
+  }
+}

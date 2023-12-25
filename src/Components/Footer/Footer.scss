@@ -1,0 +1,46 @@
+@import '../../variables/variables.scss';
+
+footer {
+  width: 100%;
+    margin-top: 40px;
+  padding: 20px 0;
+  background-image: linear-gradient(
+    to right bottom,
+    rgba($bg-color-main, 0.9),
+    rgba($bg-color-main, 0.9),
+    rgba($bg-color-main, 0.6),
+    rgba($bg-color-main, 0.5),
+    rgba($bg-color-main, 0)
+  );
+  position: relative;
+  left: 0;
+  bottom: 0;
+}
+
+.span-red {
+  @include span-logo;
+}
+
+.footer__container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer__contacts {
+  margin-bottom: 10px;
+}
+
+.footer__item {
+  display: flex;
+}
+
+.footer__social-link {
+  width: 30px;
+  height: 30px;
+  margin-right: 20px;
+}
+
+.footer__copyright {
+  font-weight: $fw700;
+}

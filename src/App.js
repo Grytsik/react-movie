@@ -1,25 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import Header from './Components/Header/Header';
 
-function App() {
+import './App.scss';
+import Footer from './Components/Footer/Footer';
+import RouteComponent from './Components/RouteComponent/RouteComponent';
+import { useGetTrandingSliderQuery } from './store/dataSlice';
+import Loading from './Components/Loading/Loading';
+export default function App() {
+  // const loading = useSelector((state) => state.data.loading);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='app'>
+      <Header />
+      <div className='content-wrapper'>
+        <RouteComponent />
+      </div>
+      <Footer />
     </div>
   );
 }
-
-export default App;
