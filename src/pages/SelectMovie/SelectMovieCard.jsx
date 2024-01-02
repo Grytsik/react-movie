@@ -19,7 +19,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
 import FadeIn from '../../Components/FadeIn/FadeIn';
 import Loading from '../../Components/Loading/Loading';
-import NotFoundPage from '../NotFoundPage';
+import NotFoundPage from '../NotFoundPage/NotFoundPage';
 import TrailerVideo from '../../Components/TrailerVideo/TrailerVideo';
 
 import './SelectMovieCard.scss';
@@ -30,24 +30,26 @@ import 'swiper/swiper-bundle.css';
 
 function SelectMovieCard() {
   const { category, id } = useParams();
-  const [trailerKey, setTrailerKey] = useState('');
   const { data: selectData, isLoading: selectLoad } = useGetSelectMovieQuery({ category, id });
   const { data: videoData, isLoading: videoLoad } = useGetVideoQuery({ category, id });
   const { data: movieImageData } = useGetImageForMovieQuery({ category, id });
-  const { data: actorsData, isLoading: actorsLoad } = useGetActorsQuery(id);
+  const { data: actorsData, isLoading: actorsLoad } = useGetActorsQuery({ category, id });
 
-  const videoKey = videoData?.results?.slice(0, 1)[0]?.key;
+  const officialTrailer = videoData?.results?.find(
+    (video) => video?.name === 'Official Trailer' || video?.name === 'Trailer'
+  );
+  const videoKey = officialTrailer?.key;
 
   const actorsProfilePath = actorsData?.cast?.filter((item) => item?.profile_path !== null);
   const movieImageEn = movieImageData?.backdrops?.filter((item) => item?.iso_639_1 === null);
 
-  const [slidesPerView, setSlidesPerView] = useState(3);
-
-  if (selectLoad || actorsLoad || videoLoad) return <Loading />;
+  if (selectLoad && actorsLoad && videoLoad) return <Loading />;
 
   if (!selectData) {
     return <NotFoundPage />;
   }
+
+  console.log(videoData);
 
   return (
     <>
@@ -101,7 +103,7 @@ function SelectMovieCard() {
                 autoHeight={true}
                 className='backdrops__slider'>
                 {actorsProfilePath?.slice(0, 10).map((actor) => (
-                  <SwiperSlide key={actor.id}>
+                  <SwiperSlide key={actor?.id || actor?.cast_id}>
                     <div className='actors__item'>
                       <img
                         className='actors__img'
@@ -130,6 +132,7 @@ function SelectMovieCard() {
             spaceBetween={30}
             centeredSlides={false}
             className='backdrops__slider'
+            style={{ height: '300px' }}
             modules={[Navigation]}
             breakpoints={{
               // when window width is <= 320px
@@ -139,7 +142,7 @@ function SelectMovieCard() {
               },
               // when window width is <= 480px
               480: {
-                slidesPerView: 2,
+                slidesPerView: 1,
                 spaceBetween: 20,
               },
 
@@ -149,8 +152,8 @@ function SelectMovieCard() {
                 spaceBetween: 30,
               },
             }}>
-            {movieImageEn?.map((item) => (
-              <SwiperSlide>
+            {movieImageEn?.map((item, index) => (
+              <SwiperSlide key={index}>
                 <img
                   className='selectMovieImage__img'
                   src={APIbackdrop780 + item?.file_path}

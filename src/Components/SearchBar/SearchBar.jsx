@@ -1,15 +1,29 @@
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import searchImg from '../../img/icons8-search-30.png';
 
 import './SearchBar.scss';
-import { fetchData, useGetSearchQuery } from '../../store/dataSlice';
+import Loading from '../Loading/Loading';
 
 export default function SearchBar() {
   const [value, setValue] = useState('');
   const [searchCategory, setSearchCategory] = useState('movie');
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    setLoading(true);
+
+    const timerId = setTimeout(() => {
+      setLoading(false);
+    }, 1500);
+
+    return () => {
+      clearTimeout(timerId);
+    }
+  },[])
+
+  if(loading) return <Loading/>
 
   const handleSearch = () => {
     if (value !== '') {
@@ -17,6 +31,8 @@ export default function SearchBar() {
       setValue('');
     }
   };
+
+
 
   const handleCategory = (category) => {
     setSearchCategory(category === '' ? 'movie' : category);

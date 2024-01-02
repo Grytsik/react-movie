@@ -10,7 +10,6 @@ import './SlideMovieList.scss';
 
 export default function SlideMovieList({ category, value, categoryRoute, title }) {
   const { data, isLoading } = useGetTrandingTvOrMovieQuery({ category, value });
-  console.log(data);
 
   const movieFind = data?.results.filter(
     (item) => item?.poster_path && item?.backdrop_path !== null
@@ -26,7 +25,23 @@ export default function SlideMovieList({ category, value, categoryRoute, title }
             spaceBetween={10}
             slidesPerView={4}
             navigation={false}
-            autoplay={{ delay: 3000, disableOnInteraction: false }}>
+            className='slideMovie-slider__wrapper'
+            autoplay={{ delay: 3000, disableOnInteraction: false }}
+            breakpoints={{
+              320: {
+                slidesPerView: 3,
+                spaceBetween: 10,
+              },
+              480: {
+                slidesPerView: 3,
+                spaceBetween: 20,
+              },
+
+              640: {
+                slidesPerView: 4,
+                spaceBetween: 30,
+              },
+            }}>
             {movieFind &&
               movieFind?.map((item) => (
                 <SwiperSlide key={item.id}>

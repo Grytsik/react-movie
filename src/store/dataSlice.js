@@ -27,7 +27,7 @@ export const fetchApi = createApi({
       query: ({ category, id }) => `${category}/${id}`,
     }),
     getActors: builder.query({
-      query: (id) => `movie/${id}/credits`,
+      query: ({ category, id }) => `${category}/${id}/credits`,
     }),
     getVideo: builder.query({
       query: ({ category, id }) => `${category}/${id}/videos`,
@@ -48,58 +48,3 @@ export const {
   useGetVideoQuery,
   useGetImageForMovieQuery,
 } = fetchApi;
-
-// import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-// import { APIkey, APIurl } from '../API/API';
-
-// const initialState = {
-//   data: [],
-//   actors: [],
-//   loading: false,
-//   error: null,
-// };
-
-// export const fetchData = createAsyncThunk('data/fetchData', async (value) => {
-//   const response = await fetch(`${APIurl}${value}api_key=${APIkey}`);
-//   const data = await response.json();
-//   return data;
-// });
-
-// export const fetchActors = createAsyncThunk('data/fetchActors', async (id) => {
-//   const response = await fetch(`${APIurl}movie/${id}/credits?api_key=${APIkey}`);
-//   const actors = await response.json();
-//   return actors;
-// });
-
-// export const dataSlice = createSlice({
-//   name: 'data',
-//   initialState,
-//   extraReducers: (builder) => {
-//     builder
-//       .addCase(fetchData.pending, (state) => {
-//         state.loading = true;
-//         state.error = null;
-//       })
-//       .addCase(fetchData.fulfilled, (state, action) => {
-//         state.loading = false;
-//         state.data = action.payload;
-//       })
-//       .addCase(fetchData.rejected, (state) => {
-//         state.error = null;
-//         state.loading = false;
-//       })
-//       .addCase(fetchActors.pending, (state) => {
-//         state.loading = true;
-//         state.error = null;
-//       })
-//       .addCase(fetchActors.fulfilled, (state, action) => {
-//         state.loading = false;
-//         state.actors = action.payload.cast.filter((item) => item !== '').slice(0, 6);
-//       })
-//       .addCase(fetchActors.rejected, (state) => {
-//         state.error = null;
-//       });
-//   },
-// });
-// export const {clearData} = dataSlice.actions;
-// export default dataSlice.reducer;

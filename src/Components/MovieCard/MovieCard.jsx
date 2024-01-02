@@ -2,7 +2,7 @@ import { APIposter, APIposter300 } from '../../API/API';
 import { Link, useParams } from 'react-router-dom';
 import FadeIn from '../FadeIn/FadeIn';
 import Loading from '../Loading/Loading';
-import NotFoundPage from '../../pages/NotFoundPage';
+import NotFoundPage from '../../pages/NotFoundPage/NotFoundPage';
 import youtubeImg from '../../img/youtube-icon.png';
 
 import './MovieCard.scss';

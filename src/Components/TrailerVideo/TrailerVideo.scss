@@ -1,12 +1,29 @@
 @import '../../variables/variables.scss';
 
-.trailerVideo {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 50px 0px;
-}
+// .trailerVideo {
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   padding: 20px 0px;
+// }
 
 .trailerVideo__title {
   @include title-style;
+}
+
+// .trailerVideo__container {
+//   height: 100%;
+//   width: 100%;
+//   min-height: 225px;
+// }
+
+.trailerVideo__container {
+  position: relative;
+  padding-top: 56.25%; /* 720 / 1280 = 0.5625 */
+}
+
+.react-player {
+  position: absolute;
+  top: 0;
+  left: 0;
 }
