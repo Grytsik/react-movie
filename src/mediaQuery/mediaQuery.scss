@@ -49,6 +49,10 @@
   .slideMovie-slider__wrapper {
     height: 300px;
   }
+
+  .selectMovieCard__like {
+    justify-content: center;
+  }
 }
 
 @media (max-width: 668px) {
@@ -69,7 +73,7 @@
   }
 
   .backdrops__slider {
-    height: 450px;
+    height: 350px;
   }
 
   .selectMovieCard__content {
@@ -95,9 +99,6 @@
   .actors__img {
     height: auto;
   }
-  .searchBar {
-    width: auto;
-  }
 
   .footer__container {
     flex-direction: column;
@@ -120,7 +121,7 @@
   .selectMovieCard__title,
   .selectMovieCard__overview {
     position: relative;
-    max-width: 250px;
+    max-width: 350px;
     left: 50%;
     transform: translateX(-50%);
     font-size: 30px;
@@ -139,12 +140,27 @@
     top: 162px;
     left: 60px;
   }
+
+  .header__profile {
+    right: 0px;
+   
+  }
+
+  .header__login-img {
+    width: 20px;
+    height: 20px;
+  }
 }
 
 @media (max-width: 480px) {
   .actors__img {
     height: auto;
   }
+
+  .backdrops__slider {
+    height: 300px;
+  }
+
   .backdrops__slider {
     height: 350px;
   }

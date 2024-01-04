@@ -63,15 +63,10 @@
 
 .watchNow__btn {
   margin-top: 20px;
-  padding: 10px 20px;
-  border-radius: 5px;
-  border: 1px solid $bg-color-red;
-  font-weight: $fw700;
-  background: $bg-color-red;
-  transition: all 0.2s linear;
-  &:hover {
-    background: $bg-color-white;
-    color: $text-color-red;
-    transition: all 0.2s linear;
-  }
+  @include watchNow-btn;
+}
+
+.watchNow-play__btn {
+  width: 15px;
+  height: 15px;
 }

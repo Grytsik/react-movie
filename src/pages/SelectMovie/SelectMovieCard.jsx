@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import {
@@ -16,11 +15,17 @@ import {
   APIposterProfile,
 } from '../../API/API';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { Link } from 'react-scroll';
 import { Navigation } from 'swiper/modules';
+import { useState } from 'react';
+import { toastAlert } from '../../helpers/helpers';
 import FadeIn from '../../Components/FadeIn/FadeIn';
 import Loading from '../../Components/Loading/Loading';
 import NotFoundPage from '../NotFoundPage/NotFoundPage';
 import TrailerVideo from '../../Components/TrailerVideo/TrailerVideo';
+import playBtn from '../../img/play.png';
+import heartWhite from '../../img/heart-white.png';
+import heartRed from '../../img/heart-red.png';
 
 import './SelectMovieCard.scss';
 import 'react-circular-progressbar/dist/styles.css';
@@ -28,12 +33,24 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/swiper-bundle.css';
 
+
 function SelectMovieCard() {
   const { category, id } = useParams();
   const { data: selectData, isLoading: selectLoad } = useGetSelectMovieQuery({ category, id });
   const { data: videoData, isLoading: videoLoad } = useGetVideoQuery({ category, id });
   const { data: movieImageData } = useGetImageForMovieQuery({ category, id });
   const { data: actorsData, isLoading: actorsLoad } = useGetActorsQuery({ category, id });
+  const [isLiked, setIsLiked] = useState(false);
+
+  const likedFilm = () => {
+    setIsLiked(!isLiked);
+
+    if(isLiked) {
+      toastAlert('success', 'Movie added to your favourite');
+    }else {
+      toastAlert('success', 'Movie removed on your favourite');
+    }
+  };
 
   const officialTrailer = videoData?.results?.find(
     (video) => video?.name === 'Official Trailer' || video?.name === 'Trailer'
@@ -45,11 +62,11 @@ function SelectMovieCard() {
 
   if (selectLoad && actorsLoad && videoLoad) return <Loading />;
 
+  
+
   if (!selectData) {
     return <NotFoundPage />;
   }
-
-  console.log(videoData);
 
   return (
     <>
@@ -91,6 +108,19 @@ function SelectMovieCard() {
                 <p className='selectMovieCard__genres'>{item.name}</p>
               ))}
             </div>
+
+            <div className='selectMovieCard__like'>
+              <img
+                onClick={likedFilm}
+                className='selectMovieCard__heart'
+                src={isLiked ? heartWhite : heartRed}
+                alt='heart'
+              />
+              <Link to='trailer' smooth={true} duration={500} className='watch-selectMovie'>
+                Watch Now
+                <img className='selectMovie-btn__play' src={playBtn} alt='play' />
+              </Link>
+            </div>
             <p className='selectMovieCard__overview'>{selectData?.overview}</p>
 
             <div className='actors'>
@@ -119,7 +149,7 @@ function SelectMovieCard() {
           </div>
         </div>
       </FadeIn>
-      <div className='container'>
+      <div className='container' id='trailer'>
         <h3 className='trailerVideo__title'>Trailer</h3>
         <TrailerVideo videoKey={videoKey} />
       </div>

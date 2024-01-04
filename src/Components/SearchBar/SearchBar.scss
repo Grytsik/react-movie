@@ -27,9 +27,9 @@
 .searchBar__btn {
   position: absolute;
   top: 21px;
-  right: 35px;
-  width: 30px;
-  height: 30px;
+  right: 50px;
+  width: 25px;
+  height: 25px;
   padding: 15px;
   border-radius: 10px;
   background: $bg-color-white;
@@ -56,9 +56,11 @@
   .categoryBtn-item {
     padding: 5px 20px;
     border-radius: 5px;
-    &:hover, &.active {
-      background: $bg-color-red;
+    color: $text-color-red;
+    font-weight: $fw700;
+    &:hover {
       color: $text-color;
+      background: $bg-color-red-hover;
       transition: all 0.2s linear;
     }
   }

@@ -13,6 +13,7 @@ import 'swiper/css/effect-fade';
 import { APIbackdrop } from '../../API/API.js';
 import FadeIn from '../../Components/FadeIn/FadeIn.jsx';
 import Loading from '../../Components/Loading/Loading.jsx';
+import playBtn from '../../img/play.png';
 
 export default function HomeBanner() {
   const { data, isLoading } = useGetTrandingSliderQuery();
@@ -57,6 +58,7 @@ export default function HomeBanner() {
                   <p className='swiper-slider__text'>{item.overview}</p>
                   <Link className='watchNow__btn' to={`movie/${item.id}`}>
                     Watch Now
+                    <img className='watchNow-play__btn' src={playBtn} alt="play" />
                   </Link>
                 </div>
               </div>

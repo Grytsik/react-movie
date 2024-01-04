@@ -2,23 +2,17 @@
 
 .header {
   padding: 20px 0;
-  background-image: linear-gradient(
-    to right bottom,
-    rgba($bg-color-main, 0.9),
-    rgba($bg-color-main, 0.9),
-    rgba($bg-color-main, 0.6),
-    rgba($bg-color-main, 0.5),
-    rgba($bg-color-main, 0)
-  );
   z-index: 999;
   width: 100%;
   position: fixed;
   top: 0;
   left: 0;
+  transition: background 0.1s linear;
 }
 
 .header.scrolled {
   background: $bg-color-main;
+  transition: background 0.1s linear;
 }
 
 .header__container {
@@ -110,14 +104,14 @@ nav {
 
 /* Дополнительные стили для ваших ссылок и других элементов */
 .burger-menu a {
-  color: $text-color; 
-  font-size: 18px; 
+  color: $text-color;
+  font-size: 18px;
   &:hover {
     background: $bg-color-red;
     color: $text-color;
     padding: 5px;
     border-radius: 5px;
-    transition: all .2s linear;
+    transition: all 0.2s linear;
   }
   &:before {
     background: none;
@@ -218,12 +212,11 @@ nav {
     height: 3px;
     background: $bg-color-red;
     box-shadow: 5px 1px 10px $bg-color-red;
-
   }
 }
 
 .header__login {
-  padding: 7px;
+  padding: 10px 20px;
   border-radius: 5px;
   border: 1px solid $bg-color-red;
   font-weight: $fw700;
@@ -231,14 +224,83 @@ nav {
   color: $text-color;
   transition: all 0.2s linear;
   &:hover {
-    background: $bg-color-white;
-    color: $text-color-red;
+    background: $bg-color-red-hover;
     transition: all 0.2s linear;
   }
 }
 
 .header__login-profile {
   font-weight: $fw700;
+  margin-left: 10px;
+  font-size: 12px;
+  max-width: 100px;
   text-transform: uppercase;
   cursor: pointer;
+  position: relative;
+}
+
+.header__login-img {
+  width: 30px;
+  height: 30px;
+}
+
+.header__profile {
+  position: absolute;
+  right: 50px;
+}
+
+.header__profile-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dropdown {
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  top: 68px;
+  right: 0px;
+  background: $bg-color-main;
+  box-sizing: border-box;
+  width: 200px;
+  padding: 30px 10px;
+  transform: translateX(60px);
+  transition: transform 0.2s ease, opacity 0.2s ease, visibility 0.2s ease;
+
+  &.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0px);
+  }
+}
+
+.dropdown__items {
+  display: flex;
+  flex-direction: column-reverse;
+  text-transform: uppercase;
+  font-weight: $fw700;
+}
+
+.dropdown-items__favourites {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  &:hover {
+    background: rgba($bg-color-white, 0.1);
+  }
+}
+
+.dropdown__heart {
+  height: 20px;
+  width: 20px;
+  margin-right: 30px;
+}
+
+.header__logOut {
+  border: none;
+  background: none;
+  color: $text-color;
+  text-transform: uppercase;
+  font-weight: $fw700;
 }

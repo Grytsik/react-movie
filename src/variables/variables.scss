@@ -8,6 +8,7 @@ $search-bg-color: #2f3640;
 $bg-color-main: #181818;
 $bg-color-header: #000;
 $bg-color-red: #ff0000;
+$bg-color-red-hover: #b20000;
 $bg-color-white: #fff;
 $bg-color-black: #000;
 
@@ -37,4 +38,18 @@ $text-size: 20px;
 @mixin span-logo {
   color: $text-color-red;
   font-weight: $fw700;
+}
+
+@mixin watchNow-btn {
+  padding: 15px 25px;
+  border-radius: 5px;
+  font-size: 16px;
+  color: $text-color;
+  font-weight: $fw700;
+  background: $bg-color-red;
+  transition: all 0.2s linear;
+  &:hover {
+    background: $bg-color-red-hover;
+    transition: all 0.2s linear;
+  }
 }

@@ -1,4 +1,4 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { fallDown as Menu } from 'react-burger-menu';
 import { signOut } from 'firebase/auth';
@@ -7,36 +7,32 @@ import Loading from '../Loading/Loading';
 import Modal from 'react-modal';
 import Login from '../Login/Login';
 import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import notPhotoImg from '../../img/anonymous.png';
+import heartWhite from '../../img/heart-white.png';
+import logoutImg from '../../img/logout.png';
+import playBtn from '../../img/play.png';
 
+import 'react-toastify/dist/ReactToastify.css';
 import './Header.scss';
+import HeaderBurger from './HeaderBurger/HeaderBurger';
 
 export default function Header() {
-  const [menuOpen, setMenuOpen] = useState(false);
   const [modalOpen, setIsModalOpen] = useState(false);
-  const [loading, setLoading] = useState(true);
   const [navigationKey, setNavigationKey] = useState('');
   const [scrollingDown, setScrollingDown] = useState(false);
   const [user, setUser] = useState(null);
+  const [activeDropDown, setActiveDropDown] = useState(false);
   const location = useLocation();
-
-  console.log(user);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      setNavigationKey(location.pathname);
-      setLoading(false);
-    }, 1500);
-
-    return () => {
-      clearTimeout(timeoutId);
-    };
+    setNavigationKey(location.pathname);
   }, [location]);
 
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
-      setScrollingDown(scrollPosition > 10);
+      setScrollingDown(scrollPosition > 60);
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -50,14 +46,6 @@ export default function Header() {
     const storedUser = JSON.parse(localStorage.getItem('user'));
     setUser(storedUser);
   }, [auth.currentUser]);
-
-  const toggleBurgerMenu = () => {
-    setMenuOpen(!menuOpen);
-  };
-
-  const closeBurgerMenu = () => {
-    setMenuOpen(false);
-  };
 
   function openModal() {
     setIsModalOpen(true);
@@ -109,6 +97,12 @@ export default function Header() {
       closeOnClick: true,
       pauseOnHover: true,
     });
+    navigate('/');
+    setActiveDropDown(false);
+  };
+
+  const handleLinksClick = () => {
+    setActiveDropDown(false);
   };
 
   const loginAccess = () => {
@@ -117,9 +111,11 @@ export default function Header() {
     setUser(userData);
   };
 
-  Modal.setAppElement('#root');
+  const dropDownHandler = () => {
+    setActiveDropDown(!activeDropDown);
+  };
 
-  if (loading) return <Loading />;
+  Modal.setAppElement('#root');
 
   return (
     <div className={`header ${scrollingDown ? 'scrolled' : ''}`}>
@@ -145,43 +141,31 @@ export default function Header() {
           </nav>
 
           {/* Burger Menu */}
-          <Menu
-            width={300}
-            isOpen={menuOpen}
-            onOpen={toggleBurgerMenu}
-            onClose={toggleBurgerMenu}
-            key={navigationKey}
-            onStateChange={({ isOpen }) =>
-              isOpen
-                ? document.body.classList.add('no-scroll')
-                : document.body.classList.remove('no-scroll')
-            }
-            className='burger-menu'>
-            <div className='burger-menu--content'>
-              <div className='burger-menu--title'>
-                Movie<span className='span-red'>Nut</span>
-              </div>
-              <h3 className='burger-menu--subtitle'>Menu</h3>
-              <ul className='nav__list burger-list'>
-                {headerNav.map((e, i) => (
-                  <li key={i} className='nav__item burger-item'>
-                    <Link onClick={closeBurgerMenu} className='nav__link burger-link' to={e.path}>
-                      {e.display}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </Menu>
+
+          <HeaderBurger headerNav={headerNav} navigationKey={navigationKey} />
         </div>
         {user ? (
           <>
-            <Link to={'/profile'}>
-              <p className='header__login-profile'>{user?.displayName || user?.email}</p>
-            </Link>
-            <button className='header__login' onClick={handleLogOut}>
-              Log out
-            </button>
+            <div className='header__profile' onClick={dropDownHandler}>
+              <div className='header__profile-content'>
+                <img className='header__login-img' src={user?.photoURL || notPhotoImg} alt='user' />
+                <p className='header__login-profile'>{user?.displayName || 'Guest'}</p>
+              </div>
+            </div>
+            <div className={`dropdown ${activeDropDown ? 'active' : ''}`}>
+              <div className='dropdown__items'>
+                <div className='dropdown-items__favourites'>
+                  <img className='dropdown__heart logout' src={logoutImg} alt='logout' />
+                  <button className='header__logOut' onClick={handleLogOut}>
+                    Log out
+                  </button>
+                </div>
+                <div className='dropdown-items__favourites' onClick={handleLinksClick}>
+                  <img className='dropdown__heart' src={heartWhite} alt='heart' />
+                  <Link to={'/profile'}>Favourites</Link>
+                </div>
+              </div>
+            </div>
           </>
         ) : (
           <button className='header__login' onClick={openModal}>
@@ -193,7 +177,7 @@ export default function Header() {
           onRequestClose={closeModal}
           style={customStyles}
           contentLabel='Example Modal'>
-          <Login closeModal={closeModal} loginAccess={loginAccess} />
+          <Login closeModal={closeModal} loginAccess={loginAccess} user={user} />
         </Modal>
       </div>
     </div>

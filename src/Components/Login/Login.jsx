@@ -5,42 +5,38 @@ import {
   createUserWithEmailAndPassword,
   signInWithPopup,
 } from 'firebase/auth';
+import { useForm } from 'react-hook-form';
+import { toastAlert } from '../../helpers/helpers';
 import googleIcon from '../../img/google.png';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
 
 import './Login.scss';
 
-export default function Login({ closeModal, loginAccess }) {
+export default function Login({ closeModal, loginAccess, user }) {
   const [isLogin, setIsLogin] = useState(true);
 
-  const [loginUp, setLoginUp] = useState('');
-  const [passwordUp, setPasswordUp] = useState('');
+  const [loginEmail, setLoginEmail] = useState('');
+  const [loginPassword, setLoginPassword] = useState('');
 
   const [createPassword, setCreatePassword] = useState('');
   const [createPasswordAgain, setCreatePasswordAgain] = useState('');
   const [createEmail, setCreateEmail] = useState('');
+  const navigate = useNavigate();
+
+  const { register, handleSubmit, formState } = useForm();
+  const { errors } = formState;
 
   const toggleForm = () => {
     setIsLogin(!isLogin);
   };
-
-  console.log(auth.currentUser);
 
   const signWithGoogle = async (e) => {
     signInWithPopup(auth, provider)
       .then(() => {
         loginAccess();
         closeModal();
-        toast.success(`Hi, ${auth.displayName || 'User'}!`, {
-          position: 'top-right',
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
+        toastAlert('success', `Hi, glad to see you!`);
+        navigate('/');
       })
       .catch((error) => {
         console.log(error);
@@ -48,45 +44,31 @@ export default function Login({ closeModal, loginAccess }) {
   };
 
   const loginFunc = async (e) => {
-    e.preventDefault();
-    await signInWithEmailAndPassword(auth, loginUp, passwordUp)
+    await signInWithEmailAndPassword(auth, loginEmail, loginPassword)
       .then(() => {
         loginAccess();
         closeModal();
-        toast.success(`Hi, ${auth.displayName || 'User'}!`, {
-          position: 'top-right',
-          autoClose: 3000, // Закроется через 3 секунды
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
+        toastAlert('success', 'Hello, welcome back!');
+        navigate('/');
       })
       .catch((error) => {
         console.log(error);
+        toastAlert('warning', 'Check the correctness of the entered data');
       });
   };
 
   const createLogin = async (e) => {
-    e.preventDefault();
     if (createEmail && createPassword === createPasswordAgain) {
       createUserWithEmailAndPassword(auth, createEmail, createPassword)
         .then(() => {
           loginAccess();
           closeModal();
-          toast.success(`Hi, ${auth.displayName || 'User'}!`, {
-            position: 'top-right',
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          });
+          toastAlert('success', `Hi, glad to see you!`);
+          navigate('/');
         })
         .catch((error) => {
           console.log(error);
+          toastAlert('warning', error.message);
         });
     }
   };
@@ -95,21 +77,29 @@ export default function Login({ closeModal, loginAccess }) {
     <div className='login-page'>
       <div className='form'>
         {isLogin ? (
-          <form className='login-form'>
+          <form className='login-form' onSubmit={handleSubmit(loginFunc)}>
             <input
-              type='email'
-              onChange={(e) => setLoginUp(e.target.value)}
-              placeholder='email'
-              required
+              placeholder='Email'
+              {...register('email', {
+                onChange: (e) => setLoginEmail(e.target.value),
+                pattern: {
+                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                  message: 'Invalid email address',
+                },
+              })}
             />
+            <p className='error'>{errors.email?.message}</p>
+
             <input
               type='password'
-              onChange={(e) => setPasswordUp(e.target.value)}
               placeholder='password'
-              required
+              {...register('password', {
+                onChange: (e) => setLoginPassword(e.target.value),
+                minLength: { value: 6, message: 'Password should be at least 6 characters' },
+              })}
             />
-            <button onClick={loginFunc}>login</button>
-
+            <p className='error'>{errors.password?.message}</p>
+            <button type='submit'>login</button>
             <button className='button-with-google' onClick={signWithGoogle}>
               Continue with google
               <img className='google-img' src={googleIcon} alt='google' />
@@ -125,27 +115,44 @@ export default function Login({ closeModal, loginAccess }) {
             </a>
           </form>
         ) : (
-          <form className='login-form'>
+          <form className='login-form' onSubmit={handleSubmit(createLogin)}>
             <input
               type='email'
               placeholder='email address'
-              required
-              onChange={(e) => setCreateEmail(e.target.value)}
+              {...register('email', {
+                onChange: (e) => setCreateEmail(e.target.value),
+                required: 'Email is required',
+                pattern: {
+                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                  message: 'Invalid email address',
+                },
+              })}
             />
+            <p className='error'>{errors.email?.message}</p>
+
             <input
               type='password'
               placeholder='password'
-              required
-              onChange={(e) => setCreatePassword(e.target.value)}
+              {...register('password', {
+                onChange: (e) => setCreatePassword(e.target.value),
+                required: 'Password is required',
+                minLength: { value: 6, message: 'Password should be at least 6 characters' },
+              })}
             />
-            <input
-              type='password'
-              placeholder='password again'
-              required
-              onChange={(e) => setCreatePasswordAgain(e.target.value)}
-            />
+            <p className='error'>{errors.password?.message}</p>
 
-            <button onClick={createLogin}>Create</button>
+            <input
+              type='passwordAgain'
+              placeholder='password again'
+              {...register('passwordAgain', {
+                onChange: (e) => setCreatePasswordAgain(e.target.value),
+                required: 'Password is required',
+                minLength: { value: 6, message: 'Password should be at least 6 characters' },
+              })}
+            />
+            <p className='error'>{errors.passwordAgain?.message}</p>
+
+            <button type='submit'>Create</button>
             <p className='message'>
               Already registered?{' '}
               <a href='#' onClick={toggleForm}>

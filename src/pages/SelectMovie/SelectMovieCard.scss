@@ -35,7 +35,6 @@
   justify-content: space-around;
   align-items: center;
   position: relative;
-  top: -100px;
   left: 0;
 }
 
@@ -78,7 +77,6 @@
   max-width: 230px;
   height: max-content;
   object-fit: cover;
-  // border-radius: 50%;
   margin-right: 15px;
 }
 
@@ -94,14 +92,6 @@
   height: 50px;
   font-weight: bold;
 }
-// .CircularProgressbar {
-//   width: 10% !important;
-// }
-
-// .CircularProgressbar {
-//   width: 10%;
-//   vertical-align: middle;
-// }
 
 .selectMovieImage__img {
   background-size: cover;
@@ -126,4 +116,27 @@
 
 .swiper-button-prev {
   left: -5px;
+}
+
+.selectMovieCard__like {
+  display: flex;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.watch-selectMovie {
+  margin-left: 30px;
+  cursor: pointer;
+  @include watchNow-btn;
+}
+
+.selectMovieCard__heart {
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+}
+
+.selectMovie-btn__play {
+  width: 20px;
+  height: 20px;
 }
