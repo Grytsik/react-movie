@@ -6,19 +6,23 @@ import {
   useGetVideoQuery,
   useGetImageForMovieQuery,
 } from '../../store/dataSlice';
-import {
-  APIbackdrop780,
-  APIbackdrop,
-  APIkey,
-  APIposter,
-  APIposter300,
-  APIposterProfile,
-} from '../../API/API';
+import { APIbackdrop780, APIbackdrop, APIposter300, APIposterProfile } from '../../API/API';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Link } from 'react-scroll';
 import { Navigation } from 'swiper/modules';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { toastAlert } from '../../helpers/helpers';
+import { auth, db } from '../../API/firebase';
+import {
+  addDoc,
+  collection,
+  setDoc,
+  getDocs,
+  getDoc,
+  updateDoc,
+  doc,
+  deleteDoc,
+} from 'firebase/firestore';
 import FadeIn from '../../Components/FadeIn/FadeIn';
 import Loading from '../../Components/Loading/Loading';
 import NotFoundPage from '../NotFoundPage/NotFoundPage';
@@ -33,24 +37,69 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/swiper-bundle.css';
 
-
 function SelectMovieCard() {
   const { category, id } = useParams();
   const { data: selectData, isLoading: selectLoad } = useGetSelectMovieQuery({ category, id });
   const { data: videoData, isLoading: videoLoad } = useGetVideoQuery({ category, id });
   const { data: movieImageData } = useGetImageForMovieQuery({ category, id });
   const { data: actorsData, isLoading: actorsLoad } = useGetActorsQuery({ category, id });
+  const [userLike, setUserLike] = useState([]);
   const [isLiked, setIsLiked] = useState(false);
+  const [updateImg, setUpdateImg] = useState('');
+  const [loading, setLoading] = useState(true);
 
-  const likedFilm = () => {
-    setIsLiked(!isLiked);
+  const collectionRef = collection(db, 'like');
 
-    if(isLiked) {
-      toastAlert('success', 'Movie added to your favourite');
-    }else {
-      toastAlert('success', 'Movie removed on your favourite');
+  useEffect(() => {
+    const getLike = async () => {
+      const dataLike = await getDocs(collectionRef);
+      setUserLike(dataLike.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+      setLoading(false);
+    };
+
+    getLike();
+  }, []);
+
+  useEffect(() => {
+    if (!loading) {
+      const currentLike = userLike.find((like) => {
+        return like.user_id === auth?.currentUser?.uid && like.movie_id === id;
+      });
+      setIsLiked(currentLike?.is_liked ?? false);
+    }
+  }, [userLike, loading]);
+
+  useEffect(() => {
+    // Реакция на изменение состояния isLiked
+    const src = isLiked ? heartRed : heartWhite;
+    setUpdateImg(src);
+  }, [isLiked, updateImg]);
+
+  const addLikeMovie = async (userId, likeMovieId) => {
+    if (auth.currentUser) {
+      const docRef = doc(collectionRef, likeMovieId);
+
+      try {
+        await setDoc(docRef, {
+          user_id: userId,
+          movie_id: likeMovieId,
+          is_liked: !isLiked,
+        });
+        setIsLiked(!isLiked);
+        toastAlert(
+          'success',
+          isLiked ? 'Movie removed from your favourites' : 'Movie added to your favourites'
+        );
+      } catch (error) {
+        console.error('Error updating like:', error);
+        toastAlert('error', 'Failed to update like');
+      }
+    } else {
+      toastAlert('warning', 'You need to login!');
     }
   };
+
+  console.log(isLiked);
 
   const officialTrailer = videoData?.results?.find(
     (video) => video?.name === 'Official Trailer' || video?.name === 'Trailer'
@@ -61,8 +110,6 @@ function SelectMovieCard() {
   const movieImageEn = movieImageData?.backdrops?.filter((item) => item?.iso_639_1 === null);
 
   if (selectLoad && actorsLoad && videoLoad) return <Loading />;
-
-  
 
   if (!selectData) {
     return <NotFoundPage />;
@@ -89,7 +136,7 @@ function SelectMovieCard() {
               {selectData?.original_title || selectData?.original_name}
             </h2>
             <div className='selectMovieCard__genVote'>
-              <div className='circular' style={{ width: '100px' }}>
+              <div className='circular' style={{ width: '50px' }}>
                 <CircularProgressbar
                   className='progress-bar select-progress-bar'
                   value={selectData?.vote_average}
@@ -105,17 +152,38 @@ function SelectMovieCard() {
                 />
               </div>
               {selectData?.genres?.map((item) => (
-                <p className='selectMovieCard__genres'>{item.name}</p>
+                <p key={item?.id} className='selectMovieCard__genres'>
+                  {item.name}
+                </p>
               ))}
             </div>
 
             <div className='selectMovieCard__like'>
-              <img
-                onClick={likedFilm}
-                className='selectMovieCard__heart'
-                src={isLiked ? heartWhite : heartRed}
-                alt='heart'
-              />
+              {/* {userLike?.map((item) =>
+                item?.user_id === auth?.currentUser?.uid && item?.movie_id === id ? (
+                  <img onClick={() => addLikeMovie(auth?.currentUser?.uid, id)}
+                    className='selectMovieCard__heart'
+                    src={item.is_Liked ? heartWhite : heartRed}
+                    alt='heart'
+                  />
+                ) : (
+                  <img onClick={() => addLikeMovie(auth?.currentUser?.uid, id)}
+                    className='selectMovieCard__heart'
+                    src={heartWhite}
+                    alt='heart'
+                  />
+                )
+              )} */}
+              {loading ? (
+                <p>Loading///</p>
+              ) : (
+                <img
+                  onClick={() => addLikeMovie(auth?.currentUser?.uid, id)}
+                  className='selectMovieCard__heart'
+                  src={isLiked ? heartRed : heartWhite}
+                  alt='heart'
+                />
+              )}
               <Link to='trailer' smooth={true} duration={500} className='watch-selectMovie'>
                 Watch Now
                 <img className='selectMovie-btn__play' src={playBtn} alt='play' />
@@ -182,12 +250,12 @@ function SelectMovieCard() {
                 spaceBetween: 30,
               },
             }}>
-            {movieImageEn?.map((item, index) => (
-              <SwiperSlide key={index}>
+            {movieImageEn?.map((item) => (
+              <SwiperSlide key={item?.id}>
                 <img
                   className='selectMovieImage__img'
                   src={APIbackdrop780 + item?.file_path}
-                  alt='picture'
+                  alt='actor'
                 />
               </SwiperSlide>
             ))}

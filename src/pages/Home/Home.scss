@@ -70,3 +70,16 @@
   width: 15px;
   height: 15px;
 }
+
+.swiper-genres__name {
+  margin-left: 15px;
+  font-weight: bold;
+  background: #b20000;
+  padding: 7px 3px;
+  border-radius: 10px;
+}
+
+.swiper-genres__item {
+  display: flex;
+  align-items: center;
+}

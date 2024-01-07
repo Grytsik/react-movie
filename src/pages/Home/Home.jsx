@@ -1,7 +1,7 @@
 import './Home.scss';
 
 import HomeBanner from './HomeBanner.jsx';
-import SlideMovieList from '../../Components/MovieCard/SlideMovieList.jsx';
+import SlideMovieList from '../../Components/MovieCard/SlideMovieList/SlideMovieList.jsx';
 
 function Home() {
   return (

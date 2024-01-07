@@ -1,25 +1,22 @@
 @import '../../variables/variables.scss';
 
-
 .login-page {
   width: 350px;
-    padding: 8% 0 0;
-    margin: auto;
-    
-  }
-  .form {
-    position: relative;
-    z-index: 1;
-    background: $bg-color-main;
-    max-width: 350px;
-    // border: 2px solid $bg-color-red;
-    margin: 0 auto 100px;
-    padding: 45px;
-    text-align: center;
-    box-shadow: 0 0 20px 0 rgba($bg-color-red,0.2), 0 5px 5px 0 rgba($bg-color-red,0.24);
-  }
-  .form input {
-    font-family: "Roboto", sans-serif;
+  padding: 8% 0 0;
+  margin: auto;
+}
+.form {
+  position: relative;
+  z-index: 1;
+  background: $bg-color-main;
+  max-width: 350px;
+  // border: 2px solid $bg-color-red;
+  margin: 0 auto 100px;
+  padding: 45px;
+  text-align: center;
+  box-shadow: 0 0 20px 0 rgba($bg-color-red, 0.2), 0 5px 5px 0 rgba($bg-color-red, 0.24);
+  input {
+    font-family: 'Roboto', sans-serif;
     outline: 0;
     background: $bg-color-white;
     width: 100%;
@@ -29,82 +26,107 @@
     box-sizing: border-box;
     font-size: 14px;
   }
-  .form button {
-    font-family: "Roboto", sans-serif;
-    text-transform: uppercase;
-    outline: 0;
-    background: $bg-color-red;
-    width: 100%;
-    border: 0;
-    padding: 15px;
-    color: #FFFFFF;
-    font-size: 14px;
-    -webkit-transition: all 0.3 ease;
-    transition: all 0.3 ease;
-    cursor: pointer;
-  }
-  .form button:hover,.form button:active,.form button:focus {
-    background: $bg-color-white;
-    color: $text-color-red;
-    transition: all .2s linear;
-  }
-  .form .message {
-    margin: 15px 0 0;
-    color: #b3b3b3;
-    font-size: 12px;
-  }
-  .form .message a {
-    color: $bg-color-red;
-    text-decoration: none;
-  }
-  .form .register-form {
-    display: none;
+}
+.form input {
+  font-family: 'Roboto', sans-serif;
+  outline: 0;
+  background: $bg-color-white;
+  width: 100%;
+  border: 0;
+  margin: 0 0 15px;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+.form .form-btn {
+  font-family: 'Roboto', sans-serif;
+  text-transform: uppercase;
+  outline: 0;
+  background: $bg-color-red;
+  width: 100%;
+  border: 0;
+  padding: 15px;
+  color: #ffffff;
+  font-size: 14px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s linear;
+
+  &:hover,
+  &:active,
+  &:focus {
+    background: $bg-color-red-hover;
+    transition: all 0.2s linear;
   }
 
-  .ReactModal__Overlay {
-    background: rgba($bg-color-black,0.9) !important;
-  }
-
-  .ReactModal__Content {
-    background: none !important;
-    border: none !important;
-  }
-
-  .close-button {
-    width: 25px;
-    padding: 5px;
-    margin: 0;
-    position: absolute;
-    top: 13px;
-    right: 7px;
-    text-align: center;
-    cursor: pointer;
-    background: $bg-color-red;
-    font-weight: $fw700;
-    &:hover {
-      background: $bg-color-white;
-      color: $text-color-red;
-      font-weight: $fw700;
-      transition: all .2s linear;
-    }
-  }
-
-  .button-with-google {
-    margin-top: 10px;
-    position: relative;
-  }
-
-  .google-img {
-    width: 30px;
-    height: 30px;
-    position: absolute;
-    left: 10px;
-    bottom: 10px;
-  }
-
-
-  .error {
-    color: $bg-color-red;
+  &.form-btn {
     margin-bottom: 10px;
   }
+}
 
+// .form .message {
+//   margin: 15px 0 0;
+//   color: #b3b3b3;
+//   font-size: 12px;
+// }
+.form .message {
+  text-decoration: none;
+  margin: 15px 0 0;
+  color: #b3b3b3;
+  font-size: 12px;
+}
+
+.message-click {
+  color: $text-color-red !important;
+}
+.form .register-form {
+  display: none;
+}
+
+.ReactModal__Overlay {
+  background: rgba($bg-color-black, 0.9) !important;
+}
+
+.ReactModal__Content {
+  background: none !important;
+  border: none !important;
+}
+
+.close-button {
+  width: 25px;
+  padding: 5px;
+  margin: 0;
+  position: absolute;
+  top: 13px;
+  right: 7px;
+  text-align: center;
+  cursor: pointer;
+  color: $text-color;
+  background: $bg-color-red;
+  font-weight: $fw700;
+  &:hover {
+    background: $bg-color-red-hover;
+    font-weight: $fw700;
+    transition: all 0.2s linear;
+  }
+}
+
+.button-with-google {
+  margin-top: 10px;
+  position: relative;
+}
+
+.google-img {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+}
+
+.error {
+  color: $bg-color-red;
+  margin-bottom: 10px;
+}

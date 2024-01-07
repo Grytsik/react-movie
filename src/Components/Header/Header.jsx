@@ -1,20 +1,17 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { fallDown as Menu } from 'react-burger-menu';
 import { signOut } from 'firebase/auth';
 import { auth } from '../../API/firebase';
-import Loading from '../Loading/Loading';
-import Modal from 'react-modal';
+
 import Login from '../Login/Login';
-import { toast } from 'react-toastify';
+import { toastAlert } from '../../helpers/helpers';
 import notPhotoImg from '../../img/anonymous.png';
 import heartWhite from '../../img/heart-white.png';
 import logoutImg from '../../img/logout.png';
-import playBtn from '../../img/play.png';
-
-import 'react-toastify/dist/ReactToastify.css';
-import './Header.scss';
 import HeaderBurger from './HeaderBurger/HeaderBurger';
+
+import './Header.scss';
+import LoginModal from '../LoginModal/LoginModal';
 
 export default function Header() {
   const [modalOpen, setIsModalOpen] = useState(false);
@@ -45,7 +42,7 @@ export default function Header() {
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem('user'));
     setUser(storedUser);
-  }, [auth.currentUser]);
+  }, []);
 
   function openModal() {
     setIsModalOpen(true);
@@ -54,17 +51,6 @@ export default function Header() {
   function closeModal() {
     setIsModalOpen(false);
   }
-
-  const customStyles = {
-    content: {
-      top: '50%',
-      left: '50%',
-      right: 'auto',
-      bottom: 'auto',
-      marginRight: '-50%',
-      transform: 'translate(-50%, -50%)',
-    },
-  };
 
   const headerNav = [
     {
@@ -90,13 +76,7 @@ export default function Header() {
     localStorage.removeItem('user');
     closeModal();
     setUser(null);
-    toast.success('Goodbye! See you again!', {
-      position: 'top-right',
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-    });
+    toastAlert('success', 'Goodbye! See you again!');
     navigate('/');
     setActiveDropDown(false);
   };
@@ -114,8 +94,6 @@ export default function Header() {
   const dropDownHandler = () => {
     setActiveDropDown(!activeDropDown);
   };
-
-  Modal.setAppElement('#root');
 
   return (
     <div className={`header ${scrollingDown ? 'scrolled' : ''}`}>
@@ -141,7 +119,6 @@ export default function Header() {
           </nav>
 
           {/* Burger Menu */}
-
           <HeaderBurger headerNav={headerNav} navigationKey={navigationKey} />
         </div>
         {user ? (
@@ -172,13 +149,12 @@ export default function Header() {
             Login
           </button>
         )}
-        <Modal
-          isOpen={modalOpen}
-          onRequestClose={closeModal}
-          style={customStyles}
-          contentLabel='Example Modal'>
-          <Login closeModal={closeModal} loginAccess={loginAccess} user={user} />
-        </Modal>
+        <LoginModal
+          loginAccess={loginAccess}
+          modalOpen={modalOpen}
+          closeModal={closeModal}
+          user={user}
+        />
       </div>
     </div>
   );

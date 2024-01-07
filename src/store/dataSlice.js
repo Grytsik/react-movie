@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { APIurl, APIkey, APItoken } from '../API/API';
+import { APIurl, APItoken } from '../API/API';
 
 export const fetchApi = createApi({
   reducerPath: 'fetchApi',
@@ -14,6 +14,9 @@ export const fetchApi = createApi({
     getTrandingSlider: builder.query({
       query: () => `trending/movie/week`,
     }),
+    getGenresForMovie: builder.query({
+      query: () => `genre/movie/list`,
+    }),
     getSearch: builder.query({
       query: ({ category, value }) => `search/${category}?query=${value}`,
     }),
@@ -21,7 +24,7 @@ export const fetchApi = createApi({
       query: ({ category, value }) => `${category}/${value}`,
     }),
     getCategory: builder.query({
-      query: (category) => `discover/${category}`,
+      query: ({ category, pageCount }) => `discover/${category}?page=${pageCount}`,
     }),
     getSelectMovie: builder.query({
       query: ({ category, id }) => `${category}/${id}`,
@@ -47,4 +50,5 @@ export const {
   useGetTrandingTvOrMovieQuery,
   useGetVideoQuery,
   useGetImageForMovieQuery,
+  useGetGenresForMovieQuery,
 } = fetchApi;

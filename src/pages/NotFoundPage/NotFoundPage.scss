@@ -1,21 +1,20 @@
 .notFoundPage {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .notFoundPage__title {
-    margin-bottom: 30px;
-
-    font-size: 30px;
+  margin-bottom: 30px;
+  font-size: 30px;
 }
 .notFoundPage-error_span {
-    font-size: 40px;
+  font-size: 40px;
 }

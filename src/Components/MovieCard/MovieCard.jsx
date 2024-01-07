@@ -1,4 +1,4 @@
-import { APIposter, APIposter300 } from '../../API/API';
+import { APIposter300 } from '../../API/API';
 import { Link, useParams } from 'react-router-dom';
 import FadeIn from '../FadeIn/FadeIn';
 import Loading from '../Loading/Loading';
@@ -7,7 +7,7 @@ import youtubeImg from '../../img/youtube-icon.png';
 
 import './MovieCard.scss';
 
-export default function MovieCard({ data, isLoading, categoryValue }) {
+export default function MovieCard({ data, isLoading, categoryValue, setPageCount }) {
   const { category } = useParams();
 
   console.log(data);
@@ -20,9 +20,9 @@ export default function MovieCard({ data, isLoading, categoryValue }) {
     return <NotFoundPage />;
   }
 
-  const movieBudget = data?.results.filter(
-    (item) => item?.poster_path && item?.backdrop_path !== null
-  );
+  const movieBudget = data
+    ? data?.filter((item) => item?.poster_path && item?.backdrop_path !== null)
+    : [];
 
   return (
     <>
@@ -42,16 +42,26 @@ export default function MovieCard({ data, isLoading, categoryValue }) {
                         alt='poster'
                       />
                     </Link>
-                    
-                    <div className="moviecard__content">
-                      <h2 className='moviecard__title'>{item?.original_title || item?.original_name}</h2>
-                      <img className='moviecard__content-img' src={youtubeImg} alt="img" />
+
+                    <div className='moviecard__content'>
+                      <h2 className='moviecard__title'>
+                        {item?.original_title || item?.original_name}
+                      </h2>
+                      <img className='moviecard__content-img' src={youtubeImg} alt='img' />
                     </div>
                   </div>
-                  
                 ))}
             </div>
           </FadeIn>
+          {/* <button onClick={() => setPageCount((prev) => prev - 1)} style={{ marginRight: '20px' }}>
+            Previous
+          </button>
+          <button onClick={() => setPageCount((prev) => prev + 1)}>Next</button> */}
+          <div className='container'>
+            <button className='loadMore__btn' onClick={() => setPageCount((prev) => prev + 1)}>
+              {isLoading ? 'Loading' : 'Load more'}
+            </button>
+          </div>
         </div>
       ) : (
         <NotFoundPage />

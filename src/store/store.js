@@ -10,7 +10,6 @@ const store = configureStore({
     getDefaultMiddleware().concat(fetchApi.middleware),
 });
 
-// Включите эту строку, чтобы настроить обработку локальных событий (опционально)
 setupListeners(store.dispatch);
 
 export default store;

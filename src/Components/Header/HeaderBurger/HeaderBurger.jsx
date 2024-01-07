@@ -1,7 +1,6 @@
-import { Link, useLocation } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { Link} from 'react-router-dom';
+import { useState } from 'react';
 import { fallDown as Menu } from 'react-burger-menu';
-import './HeaderBurger';
 
 export default function HeaderBurger({ headerNav, navigationKey }) {
   const [menuOpen, setMenuOpen] = useState(false);

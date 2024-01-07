@@ -53,15 +53,23 @@
   align-items: center;
   justify-content: space-around;
   margin-top: 15px;
+
   .categoryBtn-item {
     padding: 5px 20px;
     border-radius: 5px;
     color: $text-color-red;
     font-weight: $fw700;
+    &.active {
+      color: $text-color;
+      background: $bg-color-red-hover;
+    }
+
     &:hover {
       color: $text-color;
       background: $bg-color-red-hover;
       transition: all 0.2s linear;
     }
+
+    
   }
 }

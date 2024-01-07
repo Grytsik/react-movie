@@ -1,8 +1,8 @@
-import { useGetTrandingTvOrMovieQuery } from '../../store/dataSlice';
-import FadeIn from '../FadeIn/FadeIn';
+import { useGetTrandingTvOrMovieQuery } from '../../../store/dataSlice';
+import FadeIn from '../../FadeIn/FadeIn';
 import { Link } from 'react-router-dom';
-import { APIposter, APIposter300 } from '../../API/API';
-import youtubeImg from '../../img/youtube-icon.png';
+import { APIposter300 } from '../../../API/API';
+import youtubeImg from '../../../img/youtube-icon.png';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.css';

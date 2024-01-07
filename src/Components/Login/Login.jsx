@@ -5,10 +5,10 @@ import {
   createUserWithEmailAndPassword,
   signInWithPopup,
 } from 'firebase/auth';
-import { useForm } from 'react-hook-form';
 import { toastAlert } from '../../helpers/helpers';
-import googleIcon from '../../img/google.png';
 import { useNavigate } from 'react-router-dom';
+import SignIn from './SignIn/SignIn';
+import SignUp from './signUp/SignUp';
 
 import './Login.scss';
 
@@ -22,9 +22,6 @@ export default function Login({ closeModal, loginAccess, user }) {
   const [createPasswordAgain, setCreatePasswordAgain] = useState('');
   const [createEmail, setCreateEmail] = useState('');
   const navigate = useNavigate();
-
-  const { register, handleSubmit, formState } = useForm();
-  const { errors } = formState;
 
   const toggleForm = () => {
     setIsLogin(!isLogin);
@@ -77,92 +74,23 @@ export default function Login({ closeModal, loginAccess, user }) {
     <div className='login-page'>
       <div className='form'>
         {isLogin ? (
-          <form className='login-form' onSubmit={handleSubmit(loginFunc)}>
-            <input
-              placeholder='Email'
-              {...register('email', {
-                onChange: (e) => setLoginEmail(e.target.value),
-                pattern: {
-                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                  message: 'Invalid email address',
-                },
-              })}
-            />
-            <p className='error'>{errors.email?.message}</p>
-
-            <input
-              type='password'
-              placeholder='password'
-              {...register('password', {
-                onChange: (e) => setLoginPassword(e.target.value),
-                minLength: { value: 6, message: 'Password should be at least 6 characters' },
-              })}
-            />
-            <p className='error'>{errors.password?.message}</p>
-            <button type='submit'>login</button>
-            <button className='button-with-google' onClick={signWithGoogle}>
-              Continue with google
-              <img className='google-img' src={googleIcon} alt='google' />
-            </button>
-            <p className='message'>
-              Not registered?{' '}
-              <a href='#' onClick={toggleForm}>
-                Create an account
-              </a>
-            </p>
-            <a onClick={closeModal} className='close-button'>
-              Х
-            </a>
-          </form>
+          <SignIn
+            loginFunc={loginFunc}
+            setLoginEmail={setLoginEmail}
+            setLoginPassword={setLoginPassword}
+            signWithGoogle={signWithGoogle}
+            closeModal={closeModal}
+            toggleForm={toggleForm}
+          />
         ) : (
-          <form className='login-form' onSubmit={handleSubmit(createLogin)}>
-            <input
-              type='email'
-              placeholder='email address'
-              {...register('email', {
-                onChange: (e) => setCreateEmail(e.target.value),
-                required: 'Email is required',
-                pattern: {
-                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                  message: 'Invalid email address',
-                },
-              })}
-            />
-            <p className='error'>{errors.email?.message}</p>
-
-            <input
-              type='password'
-              placeholder='password'
-              {...register('password', {
-                onChange: (e) => setCreatePassword(e.target.value),
-                required: 'Password is required',
-                minLength: { value: 6, message: 'Password should be at least 6 characters' },
-              })}
-            />
-            <p className='error'>{errors.password?.message}</p>
-
-            <input
-              type='passwordAgain'
-              placeholder='password again'
-              {...register('passwordAgain', {
-                onChange: (e) => setCreatePasswordAgain(e.target.value),
-                required: 'Password is required',
-                minLength: { value: 6, message: 'Password should be at least 6 characters' },
-              })}
-            />
-            <p className='error'>{errors.passwordAgain?.message}</p>
-
-            <button type='submit'>Create</button>
-            <p className='message'>
-              Already registered?{' '}
-              <a href='#' onClick={toggleForm}>
-                Sign In
-              </a>
-            </p>
-            <a onClick={closeModal} className='close-button'>
-              Х
-            </a>
-          </form>
+          <SignUp
+            createLogin={createLogin}
+            setCreateEmail={setCreateEmail}
+            setCreatePassword={setCreatePassword}
+            setCreatePasswordAgain={setCreatePasswordAgain}
+            toggleForm={toggleForm}
+            closeModal={closeModal}
+          />
         )}
       </div>
     </div>

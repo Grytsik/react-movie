@@ -1,4 +1,3 @@
-import { Bars } from 'react-loader-spinner';
 import './Loading.scss';
 
 export default function Loading() {
