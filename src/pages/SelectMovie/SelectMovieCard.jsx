@@ -13,16 +13,8 @@ import { Navigation } from 'swiper/modules';
 import { useEffect, useState } from 'react';
 import { toastAlert } from '../../helpers/helpers';
 import { auth, db } from '../../API/firebase';
-import {
-  addDoc,
-  collection,
-  setDoc,
-  getDocs,
-  getDoc,
-  updateDoc,
-  doc,
-  deleteDoc,
-} from 'firebase/firestore';
+import { collection, setDoc, getDocs, doc } from 'firebase/firestore';
+import ReactLoading from 'react-loading';
 import FadeIn from '../../Components/FadeIn/FadeIn';
 import Loading from '../../Components/Loading/Loading';
 import NotFoundPage from '../NotFoundPage/NotFoundPage';
@@ -69,12 +61,6 @@ function SelectMovieCard() {
     }
   }, [userLike, loading]);
 
-  useEffect(() => {
-    // Реакция на изменение состояния isLiked
-    const src = isLiked ? heartRed : heartWhite;
-    setUpdateImg(src);
-  }, [isLiked, updateImg]);
-
   const addLikeMovie = async (userId, likeMovieId) => {
     if (auth.currentUser) {
       const docRef = doc(collectionRef, likeMovieId);
@@ -84,7 +70,9 @@ function SelectMovieCard() {
           user_id: userId,
           movie_id: likeMovieId,
           is_liked: !isLiked,
+          category: category,
         });
+
         setIsLiked(!isLiked);
         toastAlert(
           'success',
@@ -98,8 +86,6 @@ function SelectMovieCard() {
       toastAlert('warning', 'You need to login!');
     }
   };
-
-  console.log(isLiked);
 
   const officialTrailer = videoData?.results?.find(
     (video) => video?.name === 'Official Trailer' || video?.name === 'Trailer'
@@ -151,31 +137,18 @@ function SelectMovieCard() {
                   })}
                 />
               </div>
-              {selectData?.genres?.map((item) => (
-                <p key={item?.id} className='selectMovieCard__genres'>
-                  {item.name}
-                </p>
-              ))}
+              <div className='selectMovieCard__genres'>
+                {selectData?.genres?.map((item) => (
+                  <p key={item?.id} className='selectMovieCard__genres-item'>
+                    {item.name}
+                  </p>
+                ))}
+              </div>
             </div>
 
             <div className='selectMovieCard__like'>
-              {/* {userLike?.map((item) =>
-                item?.user_id === auth?.currentUser?.uid && item?.movie_id === id ? (
-                  <img onClick={() => addLikeMovie(auth?.currentUser?.uid, id)}
-                    className='selectMovieCard__heart'
-                    src={item.is_Liked ? heartWhite : heartRed}
-                    alt='heart'
-                  />
-                ) : (
-                  <img onClick={() => addLikeMovie(auth?.currentUser?.uid, id)}
-                    className='selectMovieCard__heart'
-                    src={heartWhite}
-                    alt='heart'
-                  />
-                )
-              )} */}
               {loading ? (
-                <p>Loading///</p>
+                <ReactLoading type='spin' color='grey' width={30} height={30} />
               ) : (
                 <img
                   onClick={() => addLikeMovie(auth?.currentUser?.uid, id)}

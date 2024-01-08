@@ -22,6 +22,8 @@
 
 .moviecard__item {
   position: relative;
+  margin-right: 20px;
+  margin-bottom: 20px;
 
   &:before {
     content: '';
@@ -69,11 +71,6 @@
     position: absolute;
     bottom: 40px;
   }
-}
-
-.moviecard__item {
-  margin-right: 20px;
-  margin-bottom: 20px;
 }
 
 .moviecard__content-img {

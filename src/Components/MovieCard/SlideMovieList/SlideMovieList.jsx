@@ -1,4 +1,4 @@
-import { useGetTrandingTvOrMovieQuery } from '../../../store/dataSlice';
+import { useGetSelectMovieQuery, useGetTrandingTvOrMovieQuery } from '../../../store/dataSlice';
 import FadeIn from '../../FadeIn/FadeIn';
 import { Link } from 'react-router-dom';
 import { APIposter300 } from '../../../API/API';
@@ -8,7 +8,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.css';
 import './SlideMovieList.scss';
 
-export default function SlideMovieList({ category, value, categoryRoute, title }) {
+export default function SlideMovieList({ category, value, title, id }) {
   const { data, isLoading } = useGetTrandingTvOrMovieQuery({ category, value });
 
   const movieFind = data?.results.filter(
@@ -46,8 +46,7 @@ export default function SlideMovieList({ category, value, categoryRoute, title }
               movieFind?.map((item) => (
                 <SwiperSlide key={item.id}>
                   <div className='slideMovie__item'>
-                    <Link
-                      to={category ? `/${category}/${item?.id}` : `/${categoryRoute}/${item?.id}`}>
+                    <Link to={`/${category}/${item?.id}`}>
                       <img
                         className='slideMovie__img'
                         src={APIposter300 + item?.poster_path}

@@ -42,7 +42,6 @@ export default function MovieCard({ data, isLoading, categoryValue, setPageCount
                         alt='poster'
                       />
                     </Link>
-
                     <div className='moviecard__content'>
                       <h2 className='moviecard__title'>
                         {item?.original_title || item?.original_name}
@@ -53,10 +52,6 @@ export default function MovieCard({ data, isLoading, categoryValue, setPageCount
                 ))}
             </div>
           </FadeIn>
-          {/* <button onClick={() => setPageCount((prev) => prev - 1)} style={{ marginRight: '20px' }}>
-            Previous
-          </button>
-          <button onClick={() => setPageCount((prev) => prev + 1)}>Next</button> */}
           <div className='container'>
             <button className='loadMore__btn' onClick={() => setPageCount((prev) => prev + 1)}>
               {isLoading ? 'Loading' : 'Load more'}

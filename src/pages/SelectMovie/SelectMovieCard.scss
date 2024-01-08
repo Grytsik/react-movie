@@ -48,12 +48,16 @@
   align-items: center;
 }
 
-.selectMovieCard__genres {
+.selectMovieCard__genres-item {
   margin-left: 15px;
   font-weight: $fw700;
   background: $text-color-red;
   padding: 7px 3px;
   border-radius: 10px;
+}
+
+.selectMovieCard__genres {
+  display: flex;
 }
 
 .selectMovieCard__overview {

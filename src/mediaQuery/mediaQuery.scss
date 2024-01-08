@@ -208,10 +208,13 @@
     font-size: 10px !important;
   }
 
-  // .swiper-genres__item {
-  //   flex-direction: column;
-  //   align-items: flex-start;
-  // }
+  .selectMovieCard__genVote {
+    flex-direction: column;
+  }
+
+  .selectMovieCard__genres {
+    margin-bottom: 30px;
+  }
 
   .swiper-genres__name {
     margin-bottom: 10px;

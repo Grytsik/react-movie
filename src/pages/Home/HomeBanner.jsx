@@ -51,7 +51,7 @@ export default function HomeBanner() {
                   <h2 className='swiper-slider__title'>{item?.original_title}</h2>
                   <div className='swiper-slider__genres'>
                     <div className='swiper-genres__item'>
-                      <div className='swiper__progress' style={{width: '25%'}}>
+                      <div className='swiper__progress' style={{ width: '25%' }}>
                         <CircularProgressbar
                           className='progress-bar'
                           value={item?.vote_average}
