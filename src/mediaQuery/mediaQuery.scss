@@ -1,14 +1,43 @@
 @media (max-width: 1024px) {
   .selectMovieCard__item {
     flex-direction: column;
+    top: -150px;
+  }
+
+  .selectMovieCard {
+    background-attachment: initial;
+    background-position: center center;
+
+    &::before,
+    &::after {
+      height: 50vh;
+    }
+  }
+
+  .trailerVideo {
+    margin-top: -150px;
+  }
+
+  .selectMovieCard-item__img {
+    width: 500px;
   }
 
   .selectMovieCard__title {
     margin-top: 20px;
+    text-align: center;
+  }
+
+  .selectMovieCard__like,
+  .selectMovieCard__genVote {
+    justify-content: center;
   }
 
   .slideMovie-slider__wrapper {
     height: 400px;
+  }
+
+  .selectMovieCard__content {
+    margin-left: 0;
   }
 }
 
@@ -43,11 +72,11 @@
   }
 
   .backdrops__slider {
-    height: 400px;
+    height: 100%;
   }
 
   .selectMovieCard__content {
-    width: 600px;
+    width: 100%;
   }
 
   .slideMovie-slider__wrapper {
@@ -77,11 +106,11 @@
   }
 
   .backdrops__slider {
-    height: 350px;
+    height: 100%;
   }
 
   .selectMovieCard__content {
-    width: 600px;
+    width: 100%;
     margin-left: 0;
   }
 
@@ -97,9 +126,10 @@
   .button-with-google {
     font-size: 14px;
   }
-  .selectMovieCard__title, .selectMovieCard__overview {
+  .selectMovieCard__title,
+  .selectMovieCard__overview {
     position: relative;
-    max-width: 400px;
+    max-width: 100%;
     left: 50%;
     transform: translateX(-50%);
     font-size: 30px;
@@ -107,6 +137,14 @@
 }
 
 @media (max-width: 568px) {
+  .selectMovieCard {
+    background-attachment: initial;
+  }
+
+  .selectMovieCard-item__img {
+    width: auto;
+  }
+
   .actors__img {
     height: auto;
   }
@@ -143,19 +181,8 @@
     width: 100%;
   }
 
-  .swiper-button-next {
-    top: 162px;
-    right: 60px;
-  }
-
-  .swiper-button-prev {
-    top: 162px;
-    left: 60px;
-  }
-
   .header__profile {
-    right: 0px;
-   
+    right: 20px;
   }
 
   .header__login-img {
@@ -164,7 +191,7 @@
   }
 
   .swiper-slider__text {
-    max-width: 300px;
+    max-width: 310px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -177,23 +204,11 @@
   }
 
   .backdrops__slider {
-    height: 300px;
-  }
-
-  .backdrops__slider {
-    height: 350px;
+    height: 100%;
   }
 
   .slideMovie-slider__wrapper {
     height: 200px;
-  }
-
-  .swiper-button-next {
-    right: 110px;
-  }
-
-  .swiper-button-prev {
-    left: 110px;
   }
 
   form {
@@ -216,7 +231,11 @@
     margin-bottom: 30px;
   }
 
+  .swiper-slider__genres {
+    flex-direction: column-reverse;
+  }
+
   .swiper-genres__name {
-    margin-bottom: 10px;
+    margin: 0 15px 10px 0 ;
   }
 }

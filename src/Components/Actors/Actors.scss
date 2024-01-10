@@ -1,0 +1,19 @@
+.actors {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .actors__img {
+    max-width: 100%;
+    height: max-content;
+    object-fit: cover;
+    margin-right: 15px;
+  }
+  
+  .actors__name {
+    margin-top: 10px;
+    font-size: 14px;
+    text-align: center;
+  }

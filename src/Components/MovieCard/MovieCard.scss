@@ -86,8 +86,13 @@
   font-weight: $fw700;
   background: none;
   transition: all 0.2s linear;
-  &:hover {
+  &:hover:not(:disabled) {
     background: rgba($bg-color-red, 0.1);
     transition: all 0.2s linear;
+  }
+
+  &:disabled {
+    background: none;
+    cursor: not-allowed;
   }
 }

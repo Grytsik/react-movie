@@ -12,8 +12,9 @@ import SignUp from './signUp/SignUp';
 
 import './Login.scss';
 
-export default function Login({ closeModal, loginAccess, user }) {
+export default function Login({ closeModal, loginAccess}) {
   const [isLogin, setIsLogin] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const [loginEmail, setLoginEmail] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
@@ -21,6 +22,9 @@ export default function Login({ closeModal, loginAccess, user }) {
   const [createPassword, setCreatePassword] = useState('');
   const [createPasswordAgain, setCreatePasswordAgain] = useState('');
   const [createEmail, setCreateEmail] = useState('');
+
+  
+
   const navigate = useNavigate();
 
   const toggleForm = () => {
@@ -28,44 +32,53 @@ export default function Login({ closeModal, loginAccess, user }) {
   };
 
   const signWithGoogle = async (e) => {
+    setLoading(true)
     signInWithPopup(auth, provider)
       .then(() => {
+        setLoading(false);
         loginAccess();
         closeModal();
         toastAlert('success', `Hi, glad to see you!`);
         navigate('/');
       })
       .catch((error) => {
+        setLoading(false);
         console.log(error);
       });
   };
 
-  const loginFunc = async (e) => {
+  const loginFunc = async () => {
+    setLoading(true);
     await signInWithEmailAndPassword(auth, loginEmail, loginPassword)
       .then(() => {
+        setLoading(false)
         loginAccess();
         closeModal();
         toastAlert('success', 'Hello, welcome back!');
         navigate('/');
       })
       .catch((error) => {
+        setLoading(false);
         console.log(error);
-        toastAlert('warning', 'Check the correctness of the entered data');
+        toastAlert('error', 'Check the correctness of the entered data');
       });
   };
 
   const createLogin = async (e) => {
     if (createEmail && createPassword === createPasswordAgain) {
+      setLoading(true);
       createUserWithEmailAndPassword(auth, createEmail, createPassword)
         .then(() => {
+          setLoading(false);
           loginAccess();
           closeModal();
           toastAlert('success', `Hi, glad to see you!`);
           navigate('/');
         })
         .catch((error) => {
+          setLoading(false);
           console.log(error);
-          toastAlert('warning', error.message);
+          toastAlert('error', error.message);
         });
     }
   };
@@ -75,21 +88,27 @@ export default function Login({ closeModal, loginAccess, user }) {
       <div className='form'>
         {isLogin ? (
           <SignIn
-            loginFunc={loginFunc}
-            setLoginEmail={setLoginEmail}
-            setLoginPassword={setLoginPassword}
-            signWithGoogle={signWithGoogle}
-            closeModal={closeModal}
-            toggleForm={toggleForm}
+            props={{
+              loginFunc,
+              setLoginEmail,
+              setLoginPassword,
+              signWithGoogle,
+              closeModal,
+              toggleForm,
+              loading,
+            }}
           />
         ) : (
           <SignUp
-            createLogin={createLogin}
-            setCreateEmail={setCreateEmail}
-            setCreatePassword={setCreatePassword}
-            setCreatePasswordAgain={setCreatePasswordAgain}
-            toggleForm={toggleForm}
-            closeModal={closeModal}
+            props={{
+              createLogin,
+              setCreateEmail,
+              setCreatePassword,
+              setCreatePasswordAgain,
+              toggleForm,
+              closeModal,
+              loading,
+            }}
           />
         )}
       </div>

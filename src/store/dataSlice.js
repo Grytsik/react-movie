@@ -18,7 +18,7 @@ export const fetchApi = createApi({
       query: () => `genre/movie/list`,
     }),
     getSearch: builder.query({
-      query: ({ category, value }) => `search/${category}?query=${value}`,
+      query: ({ category, value, pageCount }) => `search/${category}?query=${value}&page=${pageCount}`,
     }),
     getTrandingTvOrMovie: builder.query({
       query: ({ category, value }) => `${category}/${value}`,
@@ -38,6 +38,9 @@ export const fetchApi = createApi({
     getImageForMovie: builder.query({
       query: ({ category, id }) => `${category}/${id}/images`,
     }),
+    getSimilar: builder.query({
+      query: ({ category, id }) => `${category}/${id}/similar`,
+    }),
   }),
 });
 
@@ -51,4 +54,5 @@ export const {
   useGetVideoQuery,
   useGetImageForMovieQuery,
   useGetGenresForMovieQuery,
+  useGetSimilarQuery,
 } = fetchApi;

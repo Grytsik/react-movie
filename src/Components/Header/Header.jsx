@@ -3,15 +3,15 @@ import { useState, useEffect } from 'react';
 import { signOut } from 'firebase/auth';
 import { auth } from '../../API/firebase';
 
-import Login from '../Login/Login';
 import { toastAlert } from '../../helpers/helpers';
 import notPhotoImg from '../../img/anonymous.png';
 import heartWhite from '../../img/heart-white.png';
 import logoutImg from '../../img/logout.png';
 import HeaderBurger from './HeaderBurger/HeaderBurger';
+import LoginModal from '../LoginModal/LoginModal';
+import useRipple from 'use-ripple-hook';
 
 import './Header.scss';
-import LoginModal from '../LoginModal/LoginModal';
 
 export default function Header() {
   const [modalOpen, setIsModalOpen] = useState(false);
@@ -19,6 +19,7 @@ export default function Header() {
   const [scrollingDown, setScrollingDown] = useState(false);
   const [user, setUser] = useState(null);
   const [activeDropDown, setActiveDropDown] = useState(false);
+  const [ripple, event] = useRipple();
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -145,7 +146,7 @@ export default function Header() {
             </div>
           </>
         ) : (
-          <button className='header__login' onClick={openModal}>
+          <button ref={ripple} onPointerDown={event} className='header__login' onClick={openModal}>
             Login
           </button>
         )}

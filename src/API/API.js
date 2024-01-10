@@ -2,6 +2,7 @@ export const APIkey = 'e7b259828dd7d4489c8149b3aa86da33';
 export const APIurl = 'https://api.themoviedb.org/3/';
 export const APIposter = 'https://image.tmdb.org/t/p/w185';
 export const APIposter300 = 'https://image.tmdb.org/t/p/w300';
+export const APIposter500 = 'https://image.tmdb.org/t/p/w342';
 export const APIbackdrop = 'https://image.tmdb.org/t/p/original';
 export const APIbackdrop780 = 'https://image.tmdb.org/t/p/w780';
 export const APIposterProfile = 'https://image.tmdb.org/t/p/w500';

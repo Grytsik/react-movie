@@ -1,0 +1,12 @@
+@import '../../variables/variables.scss';
+
+.selectMovieImage__img {
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    width: 100%;
+  }
+  
+  .selectMovieImage__title {
+    @include title-style;
+  }

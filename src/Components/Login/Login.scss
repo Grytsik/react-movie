@@ -28,7 +28,7 @@
   }
 }
 .form input {
-  font-family: 'Roboto', sans-serif;
+  font-family: $font-family;
   outline: 0;
   background: $bg-color-white;
   width: 100%;
@@ -39,7 +39,7 @@
   font-size: 14px;
 }
 .form .form-btn {
-  font-family: 'Roboto', sans-serif;
+  font-family: $font-family;
   text-transform: uppercase;
   outline: 0;
   background: $bg-color-red;

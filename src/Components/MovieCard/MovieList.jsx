@@ -2,16 +2,21 @@ import { useEffect, useState } from 'react';
 import { useGetCategoryQuery } from '../../store/dataSlice';
 import MovieCard from './MovieCard';
 import { useParams } from 'react-router-dom';
-import Loading from '../Loading/Loading';
 
 import 'swiper/css';
 
 export default function MovieList() {
   const { category } = useParams();
   const [pageCount, setPageCount] = useState(1);
-  const { data, isLoading, isFetching } = useGetCategoryQuery({ category, pageCount });
+  const { data, isFetching } = useGetCategoryQuery({ category, pageCount });
   const [movies, setMovies] = useState([]);
   const [TvShows, setTvShows] = useState([]);
+
+  useEffect(() => {
+    setMovies([]);
+    setTvShows([]);
+    setPageCount(1);
+  }, [category]);
 
   useEffect(() => {
     if (data && data?.results) {
@@ -28,16 +33,10 @@ export default function MovieList() {
     }
   }, [data]);
 
-  useEffect(() => {
-    setPageCount(1);
-  }, [category]);
-
-  if (isFetching) return <Loading />;
-
   return (
     <MovieCard
       data={category === 'movie' ? movies : TvShows}
-      isLoading={isLoading}
+      isFetching={isFetching}
       setPageCount={setPageCount}
       category={category}
     />

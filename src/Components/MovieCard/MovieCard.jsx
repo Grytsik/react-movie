@@ -4,34 +4,31 @@ import FadeIn from '../FadeIn/FadeIn';
 import Loading from '../Loading/Loading';
 import NotFoundPage from '../../pages/NotFoundPage/NotFoundPage';
 import youtubeImg from '../../img/youtube-icon.png';
+import useRipple from 'use-ripple-hook';
+import LoadingInButton from '../LoadingInButton/LoadingInButton';
 
 import './MovieCard.scss';
 
-export default function MovieCard({ data, isLoading, categoryValue, setPageCount }) {
+export default function MovieCard({ data, isFetching, categoryValue, setPageCount, disableBtn }) {
   const { category } = useParams();
-
-  console.log(data);
-
-  if (isLoading) {
-    return <Loading />;
-  }
+  const [ripple, event] = useRipple();
 
   if (!data) {
     return <NotFoundPage />;
   }
 
-  const movieBudget = data
+  const movieFind = data
     ? data?.filter((item) => item?.poster_path && item?.backdrop_path !== null)
     : [];
 
   return (
     <>
-      {movieBudget.length > 0 ? (
+      {movieFind && movieFind.length > 0 ? (
         <div className='moviecard'>
-          <FadeIn loading={isLoading}>
+          <FadeIn loading={isFetching}>
             <div className='container moviecard__container'>
-              {movieBudget &&
-                movieBudget?.map((item) => (
+              {movieFind &&
+                movieFind?.map((item) => (
                   <div key={item.id} className='moviecard__item'>
                     <Link
                       className='moviecard__link'
@@ -53,8 +50,13 @@ export default function MovieCard({ data, isLoading, categoryValue, setPageCount
             </div>
           </FadeIn>
           <div className='container'>
-            <button className='loadMore__btn' onClick={() => setPageCount((prev) => prev + 1)}>
-              {isLoading ? 'Loading' : 'Load more'}
+            <button
+              ref={ripple}
+              onPointerDown={event}
+              className='loadMore__btn'
+              disabled={disableBtn}
+              onClick={() => setPageCount((prev) => prev + 1)}>
+              {isFetching ? <LoadingInButton /> : 'Load more'}
             </button>
           </div>
         </div>

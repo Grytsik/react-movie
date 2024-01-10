@@ -1,19 +1,24 @@
-import { useGetSelectMovieQuery, useGetTrandingTvOrMovieQuery } from '../../../store/dataSlice';
-import FadeIn from '../../FadeIn/FadeIn';
+import {
+  useGetTrandingTvOrMovieQuery,
+} from '../../../store/dataSlice';
 import { Link } from 'react-router-dom';
 import { APIposter300 } from '../../../API/API';
+import FadeIn from '../../FadeIn/FadeIn';
 import youtubeImg from '../../../img/youtube-icon.png';
-
 import { Swiper, SwiperSlide } from 'swiper/react';
+import Loading from '../../Loading/Loading';
+
 import 'swiper/swiper-bundle.css';
 import './SlideMovieList.scss';
 
-export default function SlideMovieList({ category, value, title, id }) {
+export default function SlideMovieList({ category, value, title, similarData, isFetching }) {
   const { data, isLoading } = useGetTrandingTvOrMovieQuery({ category, value });
 
-  const movieFind = data?.results.filter(
-    (item) => item?.poster_path && item?.backdrop_path !== null
-  );
+  const movieFind = value
+    ? data?.results.filter((item) => item?.poster_path && item?.backdrop_path !== null)
+    : similarData?.results.filter((item) => item?.poster_path && item?.backdrop_path !== null);
+
+  if (isFetching) return <Loading />;
 
   return (
     <>
@@ -25,15 +30,17 @@ export default function SlideMovieList({ category, value, title, id }) {
             spaceBetween={10}
             slidesPerView={4}
             navigation={false}
+            style={{
+              height: '100%',
+            }}
             className='slideMovie-slider__wrapper'
-            autoplay={{ delay: 3000, disableOnInteraction: false }}
             breakpoints={{
               320: {
-                slidesPerView: 3,
+                slidesPerView: 2,
                 spaceBetween: 10,
               },
               480: {
-                slidesPerView: 3,
+                slidesPerView: 2,
                 spaceBetween: 20,
               },
 

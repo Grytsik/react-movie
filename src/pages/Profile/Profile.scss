@@ -18,12 +18,14 @@
   align-items: center;
 }
 
+.favourite__item {
+  margin-left: 10px;
+}
+
 .favouriteMovie__container {
   display: flex;
   flex-direction: column;
   position: relative;
-  margin-left: 10px;
-  margin-bottom: 10px;
   overflow: hidden;
 
   &:before {
@@ -80,10 +82,8 @@
 }
 
 .favouriteMovie__remove {
-  z-index: 999;
-  margin-top: 10px;
-  padding: 10px 0;
-//   &:hover {
-//     pointer-events: none;
-//   }
+  width: 100%;
+  margin: 10px 0;
+  padding: 10px 0 !important;
+  @include watchNow-btn;
 }

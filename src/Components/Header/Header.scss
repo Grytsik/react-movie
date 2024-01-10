@@ -121,10 +121,10 @@ nav {
 .bm-burger-button {
   display: none;
   position: absolute;
-  width: 30px;
-  height: 20px;
-  right: -40px;
-  top: 3px;
+  width: 20px;
+  height: 15px;
+  right: -25px;
+  top: 6px;
 }
 
 /* Color/shape of burger icon bars */
@@ -134,7 +134,8 @@ nav {
 
 /* Color/shape of burger icon bars on hover*/
 .bm-burger-bars-hover {
-  background: $text-color-red;
+  transition: all .2s linear;
+  background: $bg-color-red-hover;
 }
 
 /* Position and sizing of clickable cross button */
@@ -142,7 +143,7 @@ nav {
   height: 30px;
   width: 30px;
   &:hover {
-    background: $text-color;
+    background: $bg-color-white;
     transition: all 0.2s linear;
   }
 }
@@ -152,6 +153,7 @@ nav {
   background: $bg-color-red;
   &:hover {
     background: $bg-color-white;
+    transition: all .2s linear;
   }
 }
 
@@ -185,7 +187,7 @@ nav {
 }
 
 .nav__item.burger-item {
-  margin-top: 20px;
+  margin-top: 30px;
 }
 
 .nav__link.burger-link {
