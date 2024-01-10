@@ -60,7 +60,6 @@ function SelectMovieCard() {
       const dataLike = await getDocs(collectionRef);
       setUserLike(dataLike.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     };
-
     getLike();
   }, []);
 

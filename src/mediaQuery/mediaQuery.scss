@@ -58,7 +58,7 @@
   }
 
   .searchBar {
-    width: 350px;
+    width: 500px;
   }
 
   .selectMovieCard__genVote {
@@ -137,6 +137,16 @@
 }
 
 @media (max-width: 568px) {
+  .searchBar {
+    width: 370px;
+  }
+
+  .searchBar__btn {
+    padding: 13px;
+    top: 97px;
+    right: 53px;
+  }
+
   .selectMovieCard {
     background-attachment: initial;
   }
@@ -229,6 +239,10 @@
 
   .selectMovieCard__genres {
     margin-bottom: 30px;
+  }
+
+  .swiper-slider__content {
+    left: 0;
   }
 
   .swiper-slider__genres {

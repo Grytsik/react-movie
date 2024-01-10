@@ -1,6 +1,6 @@
 import { Link} from 'react-router-dom';
 import { useState } from 'react';
-import { fallDown as Menu } from 'react-burger-menu';
+import { slide as Menu } from 'react-burger-menu';
 
 export default function HeaderBurger({ headerNav, navigationKey }) {
   const [menuOpen, setMenuOpen] = useState(false);

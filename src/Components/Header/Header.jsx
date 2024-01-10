@@ -2,7 +2,6 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { signOut } from 'firebase/auth';
 import { auth } from '../../API/firebase';
-
 import { toastAlert } from '../../helpers/helpers';
 import notPhotoImg from '../../img/anonymous.png';
 import heartWhite from '../../img/heart-white.png';
@@ -19,6 +18,7 @@ export default function Header() {
   const [scrollingDown, setScrollingDown] = useState(false);
   const [user, setUser] = useState(null);
   const [activeDropDown, setActiveDropDown] = useState(false);
+  const [activeLink, setActiveLink] = useState('');
   const [ripple, event] = useRipple();
   const location = useLocation();
   const navigate = useNavigate();
@@ -82,7 +82,7 @@ export default function Header() {
     setActiveDropDown(false);
   };
 
-  const handleLinksClick = () => {
+  const handleFavouriteClick = () => {
     setActiveDropDown(false);
   };
 
@@ -108,13 +108,14 @@ export default function Header() {
           <nav className='nav'>
             <ul className='nav__list'>
               {headerNav.map((e, i) => (
-                <div key={i}>
-                  <li className='nav__item'>
-                    <Link className='nav__link' to={e.path}>
-                      {e.display}
-                    </Link>
-                  </li>
-                </div>
+                <li key={i} className='nav__item'>
+                  <Link
+                    className={`nav__link ${e.path === activeLink ? 'active ripple' : ''}`}
+                    onClick={() => setActiveLink(e.path)}
+                    to={e.path}>
+                    {e.display}
+                  </Link>
+                </li>
               ))}
             </ul>
           </nav>
@@ -138,7 +139,7 @@ export default function Header() {
                     Log out
                   </button>
                 </div>
-                <div className='dropdown-items__favourites' onClick={handleLinksClick}>
+                <div className='dropdown-items__favourites' onClick={handleFavouriteClick}>
                   <img className='dropdown__heart' src={heartWhite} alt='heart' />
                   <Link to={'/profile'}>Favourites</Link>
                 </div>

@@ -5,10 +5,12 @@ import { toastAlert } from '../../helpers/helpers';
 import ProfileFavourite from './ProfileFavourite';
 
 import './Profile.scss';
+import Loading from '../../Components/Loading/Loading';
 
 export default function Profile() {
   const [filteredMovie, setFilteredMovie] = useState([]);
   const collectionRef = collection(db, 'like');
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -27,8 +29,11 @@ export default function Profile() {
         console.log(error);
       }
     };
+
     fetchData();
   }, [auth.currentUser]);
+
+  if (loading) return <Loading />;
 
   const deleteMovie = async (id) => {
     try {

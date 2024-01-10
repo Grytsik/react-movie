@@ -54,23 +54,22 @@ nav {
 
 .nav__link {
   margin-left: 25px;
-  font-weight: $fw700;
-  border-bottom: 2px solid transparent;
+  font-weight: 500;
   position: relative;
   text-transform: uppercase;
-  &::before {
-    content: '';
-    display: block;
-    position: absolute;
-    width: 0;
-    height: 3px;
-    bottom: -5px;
-    left: 0;
-    background-color: $text-color-red;
+  max-width: 64px;
+  box-sizing: border-box;
+  padding: 10px 10px !important;
+
+  &:hover {
+    background: rgba($bg-color-red, 0.1);
     transition: all 0.2s linear;
   }
-  &:hover::before {
-    width: 100%;
+
+  &.active {
+    background: $bg-color-red;
+    border-radius: 5px;
+    transition: all 0.2s linear;
   }
 }
 
@@ -134,7 +133,7 @@ nav {
 
 /* Color/shape of burger icon bars on hover*/
 .bm-burger-bars-hover {
-  transition: all .2s linear;
+  transition: all 0.2s linear;
   background: $bg-color-red-hover;
 }
 
@@ -153,7 +152,7 @@ nav {
   background: $bg-color-red;
   &:hover {
     background: $bg-color-white;
-    transition: all .2s linear;
+    transition: all 0.2s linear;
   }
 }
 

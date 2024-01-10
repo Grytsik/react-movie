@@ -1,10 +1,8 @@
 @import '../../variables/variables.scss';
 
 .searchBar {
-  border: 2px solid $text-color-red;
-  border-radius: 40px;
   padding: 20px 30px;
-  width: 600px;
+  width: 800px;
   overflow: hidden;
   transition: width 0.4s ease;
   position: absolute;
@@ -16,51 +14,65 @@
 .searchBar__input {
   width: 100%;
   position: relative;
-  padding: 10px 30px;
-  border-radius: 10px;
+  padding: 20px 30px;
+  border-radius: 5px;
+  color: rgba($bg-color-white, 0.5);
+  border: 1px solid rgba($bg-color-white, 0.5);
+  font-size: 20px;
+  background: $bg-color-black;
+  &:hover {
+    border: 1px solid $bg-color-white;
+    transition: all 0.1s linear;
+  }
   &:focus {
-    box-shadow: 1px 4px 10px $bg-color-red;
     transition: all 0.2s linear;
+    border: 1px solid $bg-color-red;
+  }
+  &::placeholder {
+    font-size: 20px;
   }
 }
 
 .searchBar__btn {
   position: absolute;
-  top: 21px;
+  top: 90px;
   right: 50px;
-  width: 25px;
-  height: 25px;
+  border-radius: 5px;
   padding: 15px;
-  background: $bg-color-white;
+  background: $bg-color-red;
+  color: $text-color;
   display: flex;
   justify-content: center;
   align-items: center;
   transition: 0.4s;
-  .searchBar__img {
-    width: 25px;
-    height: 25px;
+  &:hover {
+    background: $bg-color-red-hover;
+
   }
 }
 
 .searchBar__categoryBtn {
   display: flex;
   align-items: center;
-  justify-content: space-around;
-  margin-top: 15px;
+  justify-content: center;
+  margin-bottom: 15px;
 
   .categoryBtn-item {
-    padding: 5px 20px;
-    border-radius: 5px;
-    color: $text-color-red;
-    font-weight: $fw700;
-    &.active {
-      color: $text-color;
-      background: $bg-color-red-hover;
+    padding: 15px 30px;
+    font-size: 15px;
+    font-weight: 500;
+    text-transform: uppercase;
+    margin-left: 15px;
+    background: none;
+    color: $text-color;
+    &:hover {
+      background: rgba($bg-color-red, 0.1);
+      transition: all 0.2s linear;
     }
 
-    &:hover {
-      color: $text-color;
-      background: $bg-color-red-hover;
+    &.active {
+      background: $bg-color-red;
+      border-radius: 5px;
       transition: all 0.2s linear;
     }
   }
