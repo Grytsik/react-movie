@@ -9,13 +9,11 @@ import './App.scss';
 export default function App() {
   return (
     <div className='app'>
-      <ToastContainer/>
       <Header />
       <div className='content-wrapper'>
         <RouteComponent />
       </div>
       <Footer />
-      <ToastContainer />
     </div>
   );
 }
