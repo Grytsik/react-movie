@@ -5,7 +5,7 @@ import './TrailerVideo.scss';
 export default function TrailerVideo({ videoKey}) {
   return (
     <>
-      <div name='trailer' className='trailerVideo'>
+      <div name='trailer'  className='trailerVideo'>
         <div className='container'>
           <h3 className='trailerVideo__title'>Trailer</h3>
           <div className='trailerVideo__container'>

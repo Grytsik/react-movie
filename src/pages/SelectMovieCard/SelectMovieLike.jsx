@@ -18,7 +18,7 @@ export default function SelectMovieLike({ addLikeMovie, isLiked, id, loading }) 
           alt='heart'
         />
       )}
-      <Link to='trailer' smooth={true} duration={500} className='watch-selectMovie'>
+      <Link to='trailer' offset={-250} smooth={true} duration={500} className='watch-selectMovie'>
         Watch Now
         <img className='selectMovie-btn__play' src={playBtn} alt='play' />
       </Link>
