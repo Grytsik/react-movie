@@ -39,8 +39,14 @@ export default function SignIn({ props }) {
         </button>
 
         <button className='form-btn' onClick={props.signWithGoogle}>
-          Continue with google
-          <img className='google-img' src={googleIcon} alt='google' />
+          {props.loading ? (
+            <LoadingInButton />
+          ) : (
+            <>
+              Continue with Google
+              <img className='google-img' src={googleIcon} alt='google' />
+            </>
+          )}
         </button>
         <p className='message'>
           Not registered?{' '}
