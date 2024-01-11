@@ -32,15 +32,15 @@ export default function HomeBanner() {
   return (
     <FadeIn loading={isLoading}>
       <Swiper
-      // spaceBetween={50}
-      // slidesPerView={1}
-      // autoplay={{
-      //   delay: 3500,
-      //   disableOnInteraction: false,
-      // }}
-      // modules={[EffectFade, Autoplay, Navigation]}
-      // effect='fade'>
-      >
+        spaceBetween={50}
+        slidesPerView={1}
+        autoplay={{
+          delay: 3500,
+          disableOnInteraction: false,
+        }}
+        modules={[EffectFade, Autoplay, Navigation]}
+        effect='fade'>
+        
         {data &&
           data?.results?.map((item) => (
             <SwiperSlide key={item.id}>
