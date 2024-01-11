@@ -23,14 +23,7 @@ export default function SelectMovieLike({ addLikeMovie, isLiked, id, loading }) 
     };
   }, []);
 
-  const handleButtonClick = () => {
-    scroll.scrollTo('trailer', {
-      smooth: true,
-      duration: 500,
-      offset: offset,
-      horizontal: true,
-    });
-  };
+  
 
   return (
     <div className='selectMovieCard__like'>
