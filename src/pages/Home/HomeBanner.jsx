@@ -25,20 +25,22 @@ export default function HomeBanner() {
       const foundGenre = dataGenres?.genres?.find((g) => g.id === genreId);
       return foundGenre?.name;
     });
+    console.log(genreNames);
     return genreNames;
   };
 
   return (
     <FadeIn loading={isLoading}>
       <Swiper
-        spaceBetween={50}
-        slidesPerView={1}
-        autoplay={{
-          delay: 3500,
-          disableOnInteraction: false,
-        }}
-        modules={[EffectFade, Autoplay, Navigation]}
-        effect='fade'>
+      // spaceBetween={50}
+      // slidesPerView={1}
+      // autoplay={{
+      //   delay: 3500,
+      //   disableOnInteraction: false,
+      // }}
+      // modules={[EffectFade, Autoplay, Navigation]}
+      // effect='fade'>
+      >
         {data &&
           data?.results?.map((item) => (
             <SwiperSlide key={item.id}>
@@ -48,15 +50,15 @@ export default function HomeBanner() {
                 <div className='swiper-slider__content container'>
                   <h2 className='swiper-slider__title'>{item?.original_title}</h2>
                   <div className='swiper-slider__genres'>
+                    <div className='swiper__progress'>
+                      <ProgressBar data={item} />
+                    </div>
                     <div className='swiper-genres__item'>
                       {getGenresNames(item?.genre_ids, dataGenres).map((genre, index) => (
-                        <p key={index} className='swiper-genres__name'>
+                        <span key={index} className='swiper-genres__name'>
                           {genre}
-                        </p>
+                        </span>
                       ))}
-                    </div>
-                    <div className='swiper__progress' style={{ width: '25%' }}>
-                      <ProgressBar data={item} />
                     </div>
                   </div>
                   <p className='swiper-slider__text'>{item.overview}</p>

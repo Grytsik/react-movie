@@ -46,14 +46,11 @@
 .selectMovieCard__genVote {
   display: flex;
   align-items: center;
+  margin: 20px 0;
 }
 
 .selectMovieCard__genres-item {
-  margin-left: 15px;
-  font-weight: $fw700;
-  background: $text-color-red;
-  padding: 7px 3px;
-  border-radius: 10px;
+ @include genres;
 }
 
 .selectMovieCard__genres {

@@ -12,6 +12,8 @@ $bg-color-red-hover: #ff0000;
 $bg-color-white: #fff;
 $bg-color-black: #000;
 
+$bg-gradient-color2: #434343;
+
 $fw400: 400;
 $fw700: bold;
 
@@ -58,4 +60,12 @@ $text-size: 20px;
     background: $bg-color-red-hover;
     transition: all 0.2s linear;
   }
+}
+
+@mixin genres {
+  margin-left: 15px;
+  font-weight: bold;
+  background: $bg-color-red;
+  padding: 10px;
+  border-radius: 10px;
 }

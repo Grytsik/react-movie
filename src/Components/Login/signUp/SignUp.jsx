@@ -6,6 +6,7 @@ export default function SignUp({ props }) {
   const { register, handleSubmit, formState } = useForm();
   const { errors } = formState;
   const [ripple, event] = useRipple();
+
   return (
     <>
       <form className='login-form' onSubmit={handleSubmit(props.createLogin)}>
@@ -38,7 +39,10 @@ export default function SignUp({ props }) {
           type='password'
           placeholder='Password again'
           {...register('passwordAgain', {
-            validate: (value) => value === props.createPassword || 'Password must be confirm',
+            onChange: (e) => {
+              props.setCreatePasswordAgain(e.target.value);
+            },
+            validate: (value) => value === props.createPassword || 'Password must be confirmed',
             required: 'Password is required',
           })}
         />

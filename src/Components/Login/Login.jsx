@@ -65,11 +65,12 @@ export default function Login({ closeModal, loginAccess}) {
   };
 
   const createLogin = async (e) => {
-    if (createEmail && createPassword === createPasswordAgain) {
+    if (createEmail && createPassword && createPasswordAgain) {
       setLoading(true);
       createUserWithEmailAndPassword(auth, createEmail, createPassword)
         .then(() => {
           setLoading(false);
+          console.log('completed');
           loginAccess();
           closeModal();
           toastAlert('success', `Hi, glad to see you!`);
@@ -104,6 +105,7 @@ export default function Login({ closeModal, loginAccess}) {
               createLogin,
               setCreateEmail,
               setCreatePassword,
+              createPassword,
               setCreatePasswordAgain,
               toggleForm,
               closeModal,

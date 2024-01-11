@@ -1,3 +1,11 @@
+@media (max-width: 1199px) {
+  .swiper-slider__content {
+    left: 50px;
+    transform: translateY(-50%);
+    width: 600px;
+  }
+}
+
 @media (max-width: 1024px) {
   .selectMovieCard__item {
     flex-direction: column;
@@ -53,6 +61,10 @@
     display: none;
   }
 
+  .swiper-slider__title {
+    font-size: 40px;
+  }
+
   .bm-burger-button {
     display: block;
   }
@@ -95,10 +107,6 @@
 
   .swiper-container {
     width: 640px;
-  }
-
-  .swiper-slider__title {
-    font-size: 30px;
   }
 
   .slideMovie-title__main {
@@ -147,7 +155,7 @@
     right: 53px;
   }
 
-  .categoryBtn-item  {
+  .categoryBtn-item {
     padding: 10px 20px !important;
   }
 
@@ -249,11 +257,15 @@
     left: 0;
   }
 
-  .swiper-slider__genres {
-    flex-direction: column-reverse;
+  .swiper-slider__title {
+    font-size: 30px;
   }
 
   .swiper-genres__name {
-    margin: 0 15px 10px 0 ;
+    margin: 0 15px 15px 0;
+  }
+
+  .swiper-slider__genres {
+    flex-direction: column;
   }
 }
